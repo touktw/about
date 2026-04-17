@@ -229,6 +229,34 @@
       text-decoration: none;
       border-bottom: 1px solid rgba(34, 211, 238, 0.35);
     }
+
+    .ref-list a {
+      color: var(--accent2);
+      word-break: break-all;
+    }
+    .search-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.45rem;
+      margin-top: 0.35rem;
+    }
+    .search-row a {
+      font-size: 0.82rem;
+      padding: 0.25rem 0.55rem;
+      border-radius: 0.45rem;
+      background: rgba(34, 211, 238, 0.1);
+      border: 1px solid rgba(34, 211, 238, 0.28);
+      color: var(--accent2);
+      text-decoration: none;
+    }
+    .search-row a:hover {
+      background: rgba(34, 211, 238, 0.18);
+    }
+    .hint {
+      margin: 0 0 0.35rem;
+      font-size: 0.82rem;
+      color: var(--muted);
+    }
   </style>
 </head>
 <body>
@@ -268,10 +296,41 @@
         <summary>현대자동차 <span class="company-range">2023.06.28 ~ 재직 중</span></summary>
         <div class="company-body">
           <div class="project">
-            <h3>업무</h3>
+            <h3>셔클 Android</h3>
             <p class="period">기간: 2023.06 ~</p>
             <p class="lbl">개요</p>
-            <p>Android 기반 업무(상세 프로젝트·스택은 추후 정리).</p>
+            <p>
+              수요응답형(DRT) 모빌리티 <strong>셔클</strong> 플랫폼 기반 <strong>Android 앱</strong> 개발·운영.
+              같은 계열로 <strong>똑타</strong>(경기 통합·똑버스), <strong>이응</strong>(세종 통합 모빌리티),
+              <strong>광주투어버스</strong>(광주 관광 DRT) 등 지자체·서비스별 클라이언트를 다루고 있습니다.
+            </p>
+            <p class="lbl">해외 실증</p>
+            <p>
+              <strong>헝가리</strong> 수요응답교통 시범 등 셔클 플랫폼 해외 적용 과정에 참여했습니다.
+              (진행 시기·범위는 아래 보도를 참고.)
+            </p>
+            <p class="lbl">보도 · 그룹/기사 자료</p>
+            <ul class="bullets ref-list">
+              <li><a href="https://www.hyundai.co.kr/story/CONT0000000000001951" rel="noopener noreferrer">현대차 — 셔클 정식 서비스 소개</a></li>
+              <li><a href="https://www.hyundaimotorgroup.com/ko/story/CONT0000000000127799" rel="noopener noreferrer">현대자동차그룹 스토리 — 셔클</a></li>
+              <li><a href="https://www.hani.co.kr/arti/economy/car/1060453.html" rel="noopener noreferrer">한겨레 — 로보셔틀·레벨4(판교 등)</a></li>
+              <li><a href="https://www.yna.co.kr/view/AKR20230206085300060" rel="noopener noreferrer">연합뉴스 — 경기 통합앱 똑타 출시</a></li>
+              <li><a href="https://www.hyundaimotorgroup.com/ko/news/CONT0000000000155756" rel="noopener noreferrer">현대차그룹 뉴스 — 세종 이응 서비스</a></li>
+              <li><a href="https://www.khan.co.kr/article/202407011011001" rel="noopener noreferrer">경향신문 — 이응 서비스</a></li>
+              <li><a href="https://www.etravelnews.kr/76239" rel="noopener noreferrer">이트레블뉴스 — 광주투어버스</a></li>
+              <li><a href="https://mbiz.heraldcorp.com/article/10562196" rel="noopener noreferrer">헤럴드경제 — 광주투어버스 운행</a></li>
+              <li><a href="https://www.joongangenews.com/news/articleView.html?idxno=440426" rel="noopener noreferrer">중앙이코노미뉴스 — 헝가리 시범·셔클 해외 적용</a></li>
+              <li><a href="https://www.dailycar.co.kr/content/news.html?autoId=58327&amp;type=view" rel="noopener noreferrer">데일리카 — 헝가리 수요응답교통 시범</a></li>
+            </ul>
+            <p class="lbl">뉴스 검색 (Google)</p>
+            <p class="hint">키워드별로 최신 기사를 바로 열어볼 수 있습니다.</p>
+            <div class="search-row">
+              <a href="https://www.google.com/search?q=%ED%98%84%EB%8C%80%EC%9E%90%EB%8F%99%EC%B0%A8+%EC%85%94%ED%81%B4+%EB%89%B4%EC%8A%A4" rel="noopener noreferrer">셔클</a>
+              <a href="https://www.google.com/search?q=%ED%98%84%EB%8C%80%EC%9E%90%EB%8F%99%EC%B0%A8+%EB%98%91%ED%83%80+%EB%98%91%EB%B2%84%EC%8A%A4+%EB%89%B4%EC%8A%A4" rel="noopener noreferrer">똑타</a>
+              <a href="https://www.google.com/search?q=%ED%98%84%EB%8C%80%EC%9E%90%EB%8F%99%EC%B0%A8+%EC%9D%B4%EC%9D%91+%EC%84%B8%EC%A2%85+%EB%89%B4%EC%8A%A4" rel="noopener noreferrer">이응</a>
+              <a href="https://www.google.com/search?q=%EA%B4%91%EC%A3%BC%ED%88%AC%EC%96%B4%EB%B2%84%EC%8A%A4+DRT+%EB%89%B4%EC%8A%A4" rel="noopener noreferrer">광주투어버스</a>
+              <a href="https://www.google.com/search?q=%ED%98%84%EB%8C%80%EC%9E%90%EB%8F%99%EC%B0%A8+%ED%97%9D%EA%B0%80%EB%A6%AC+%EC%85%94%ED%81%B4+%EC%8B%A4%EC%A6%9D+%EB%89%B4%EC%8A%A4" rel="noopener noreferrer">헝가리 실증</a>
+            </div>
           </div>
         </div>
       </details>
