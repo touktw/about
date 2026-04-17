@@ -1,11 +1,134 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>about</title>
+  <style>
+    :root {
+      --bg1: #0f0c29;
+      --bg2: #302b63;
+      --bg3: #24243e;
+      --accent: #7c3aed;
+      --accent2: #22d3ee;
+      --text: #f8fafc;
+      --muted: #94a3b8;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      font-family: ui-sans-serif, system-ui, "Segoe UI", Roboto, "Apple SD Gothic Neo", sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(1200px 600px at 20% -10%, rgba(124, 58, 237, 0.35), transparent 55%),
+        radial-gradient(900px 500px at 100% 20%, rgba(34, 211, 238, 0.2), transparent 50%),
+        linear-gradient(160deg, var(--bg1), var(--bg2) 45%, var(--bg3));
+    }
+    .glow {
+      position: fixed;
+      inset: auto;
+      width: min(42rem, 90vw);
+      height: min(42rem, 90vw);
+      border-radius: 50%;
+      background: conic-gradient(from 210deg, var(--accent), transparent 40%, var(--accent2), transparent 75%, var(--accent));
+      filter: blur(80px);
+      opacity: 0.35;
+      animation: spin 28s linear infinite;
+      pointer-events: none;
+      z-index: 0;
+    }
+    @keyframes spin {
+      to { transform: rotate(1turn); }
+    }
+    @keyframes rise {
+      from { opacity: 0; transform: translateY(12px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .card {
+      position: relative;
+      z-index: 1;
+      width: min(28rem, calc(100vw - 2rem));
+      padding: 2.25rem 2rem;
+      border-radius: 1.25rem;
+      background: rgba(15, 23, 42, 0.55);
+      border: 1px solid rgba(148, 163, 184, 0.2);
+      box-shadow:
+        0 0 0 1px rgba(255, 255, 255, 0.04) inset,
+        0 24px 80px rgba(0, 0, 0, 0.45);
+      backdrop-filter: blur(12px);
+      animation: rise 0.7s ease-out both;
+    }
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      padding: 0.35rem 0.65rem;
+      border-radius: 999px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      color: var(--accent2);
+      background: rgba(34, 211, 238, 0.12);
+      border: 1px solid rgba(34, 211, 238, 0.25);
+    }
+    .badge::before {
+      content: "";
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--accent2);
+      box-shadow: 0 0 10px var(--accent2);
+      animation: pulse 1.6s ease-in-out infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(0.85); }
+    }
+    h1 {
+      margin: 1rem 0 0.5rem;
+      font-size: clamp(1.75rem, 4vw, 2.25rem);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      background: linear-gradient(120deg, #fff 0%, #c4b5fd 45%, #67e8f9 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    p {
+      margin: 0;
+      line-height: 1.65;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+    .row {
+      margin-top: 1.5rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+    .chip {
+      padding: 0.4rem 0.75rem;
+      border-radius: 0.5rem;
+      font-size: 0.8rem;
+      color: var(--text);
+      background: rgba(124, 58, 237, 0.2);
+      border: 1px solid rgba(124, 58, 237, 0.35);
+    }
+  </style>
 </head>
 <body>
-  <p>welcom</p>
+  <div class="glow" aria-hidden="true"></div>
+  <main class="card">
+    <span class="badge">GitHub Pages</span>
+    <h1>welcom</h1>
+    <p>Actions 배포가 반영되면 이 화면이 바뀐 걸로 확인할 수 있어요.</p>
+    <div class="row">
+      <span class="chip">main → deploy</span>
+      <span class="chip">정적 HTML</span>
+    </div>
+  </main>
 </body>
 </html>
