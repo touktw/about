@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="color-scheme" content="dark light">
-  <title>소개 · 경력</title>
+  <title>about · me</title>
   <script>
     (function () {
       function mode() {
@@ -870,9 +870,129 @@
       flex-wrap: wrap;
       gap: 0.75rem 1.25rem;
       align-items: flex-end;
+      justify-content: flex-start;
     }
     .theme-picker {
       flex-shrink: 0;
+    }
+
+    /* 우상단 · iOS-style liquid glass appearance */
+    .appearance-glass-wrap {
+      position: fixed;
+      top: max(0.65rem, env(safe-area-inset-top));
+      right: max(0.65rem, env(safe-area-inset-right));
+      z-index: 100;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 0.35rem;
+      pointer-events: none;
+    }
+    .appearance-glass-wrap * {
+      pointer-events: auto;
+    }
+    .appearance-glass__caption {
+      font-size: 0.62rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--text);
+      opacity: 0.5;
+      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
+    }
+    html[data-appearance="light"] .appearance-glass__caption {
+      text-shadow: 0 1px 0 rgba(255, 255, 255, 0.8);
+    }
+    .appearance-glass {
+      display: flex;
+      padding: 5px;
+      gap: 3px;
+      border-radius: 100px;
+      background: linear-gradient(
+        165deg,
+        rgba(255, 255, 255, 0.34) 0%,
+        rgba(255, 255, 255, 0.08) 42%,
+        rgba(255, 255, 255, 0.05) 100%
+      );
+      backdrop-filter: blur(36px) saturate(190%);
+      -webkit-backdrop-filter: blur(36px) saturate(190%);
+      border: 1px solid rgba(255, 255, 255, 0.32);
+      box-shadow:
+        0 10px 40px rgba(0, 0, 0, 0.22),
+        0 2px 12px rgba(0, 0, 0, 0.12),
+        inset 0 1px 1px rgba(255, 255, 255, 0.55),
+        inset 0 -1px 1px rgba(0, 0, 0, 0.08);
+    }
+    html[data-appearance="light"] .appearance-glass {
+      background: linear-gradient(
+        165deg,
+        rgba(255, 255, 255, 0.75) 0%,
+        rgba(255, 255, 255, 0.45) 50%,
+        rgba(255, 255, 255, 0.35) 100%
+      );
+      border-color: rgba(0, 0, 0, 0.08);
+      box-shadow:
+        0 10px 36px rgba(0, 0, 0, 0.1),
+        0 2px 8px rgba(0, 0, 0, 0.06),
+        inset 0 1px 1px rgba(255, 255, 255, 0.9),
+        inset 0 -1px 1px rgba(0, 0, 0, 0.04);
+    }
+    .appearance-glass__seg {
+      flex: 0 1 auto;
+      min-width: 3.1rem;
+      padding: 0.48rem 0.72rem;
+      border: none;
+      border-radius: 100px;
+      font: inherit;
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      color: var(--text);
+      opacity: 0.55;
+      background: transparent;
+      cursor: pointer;
+      transition:
+        opacity 0.2s ease,
+        background 0.28s ease,
+        box-shadow 0.28s ease,
+        transform 0.12s ease;
+    }
+    .appearance-glass__seg:hover {
+      opacity: 0.88;
+    }
+    .appearance-glass__seg:active {
+      transform: scale(0.97);
+    }
+    .appearance-glass__seg:focus-visible {
+      outline: 2px solid var(--accent2);
+      outline-offset: 3px;
+    }
+    .appearance-glass__seg[aria-checked="true"] {
+      opacity: 1;
+      background: linear-gradient(
+        180deg,
+        rgba(255, 255, 255, 0.52) 0%,
+        rgba(255, 255, 255, 0.16) 100%
+      );
+      box-shadow:
+        0 3px 14px rgba(0, 0, 0, 0.14),
+        inset 0 1px 1px rgba(255, 255, 255, 0.75),
+        inset 0 -1px 1px rgba(0, 0, 0, 0.06);
+    }
+    html[data-appearance="light"] .appearance-glass__seg[aria-checked="true"] {
+      background: linear-gradient(
+        180deg,
+        rgba(255, 255, 255, 0.95) 0%,
+        rgba(255, 255, 255, 0.65) 100%
+      );
+      box-shadow:
+        0 2px 10px rgba(0, 0, 0, 0.08),
+        inset 0 1px 1px rgba(255, 255, 255, 1);
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .appearance-glass__seg {
+        transition: none;
+      }
     }
     .theme-picker label {
       display: block;
@@ -908,6 +1028,25 @@
   </style>
 </head>
 <body>
+  <div class="appearance-glass-wrap">
+    <span class="appearance-glass__caption" id="appearance-glass-label">테마</span>
+    <div
+      class="appearance-glass"
+      role="radiogroup"
+      aria-labelledby="appearance-glass-label"
+    >
+      <button type="button" class="appearance-glass__seg" role="radio" data-appearance-set="light" aria-checked="false">
+        Light
+      </button>
+      <button type="button" class="appearance-glass__seg" role="radio" data-appearance-set="dark" aria-checked="false">
+        Dark
+      </button>
+      <button type="button" class="appearance-glass__seg" role="radio" data-appearance-set="system" aria-checked="false">
+        System
+      </button>
+    </div>
+  </div>
+
   <div class="page">
     <header class="panel">
       <div class="header-top">
@@ -927,18 +1066,10 @@
               <option value="vivid">클래식 블루 19-4052</option>
             </select>
           </div>
-          <div class="theme-picker">
-            <label for="appearance-select">밝기</label>
-            <select id="appearance-select" aria-describedby="theme-hint">
-              <option value="system">시스템과 같이</option>
-              <option value="dark">항상 어두움</option>
-              <option value="light">항상 밝음</option>
-            </select>
-          </div>
         </div>
       </div>
       <p id="theme-hint" class="hint theme-hint">
-        팔레트는 Pantone® 색상의 sRGB 근사치입니다. 밝기는 <code>prefers-color-scheme</code>을 따르거나 고정할 수 있으며, 설정은 이 브라우저에만 저장됩니다.
+        팔레트는 Pantone® 색상의 sRGB 근사치입니다. 우상단 <strong>테마</strong>는 Light / Dark / System(기본)이며, System일 때 <code>prefers-color-scheme</code>을 따릅니다. 설정은 이 브라우저에만 저장됩니다.
       </p>
       <h1>소개</h1>
       <p class="lead">
@@ -1215,7 +1346,7 @@
       var allowed = ["mist", "sage", "dawn", "ocean", "rose", "orange", "pink", "pastel", "vivid"];
       var root = document.documentElement;
       var themeSelect = document.getElementById("theme-select");
-      var appearanceSelect = document.getElementById("appearance-select");
+      var appearanceGlass = document.querySelector(".appearance-glass");
 
       function desiredAppearance() {
         try {
@@ -1234,8 +1365,11 @@
 
       function applyAppearance() {
         root.setAttribute("data-appearance", resolveAppearance());
-        if (appearanceSelect) {
-          appearanceSelect.value = desiredAppearance();
+        var mode = desiredAppearance();
+        var segs = document.querySelectorAll(".appearance-glass__seg");
+        for (var i = 0; i < segs.length; i++) {
+          var b = segs[i];
+          b.setAttribute("aria-checked", b.getAttribute("data-appearance-set") === mode ? "true" : "false");
         }
       }
 
@@ -1268,9 +1402,11 @@
           applyTheme(themeSelect.value);
         });
       }
-      if (appearanceSelect) {
-        appearanceSelect.addEventListener("change", function () {
-          var v = appearanceSelect.value;
+      if (appearanceGlass) {
+        appearanceGlass.addEventListener("click", function (ev) {
+          var btn = ev.target.closest("[data-appearance-set]");
+          if (!btn) return;
+          var v = btn.getAttribute("data-appearance-set");
           try {
             if (v === "system") localStorage.removeItem(appearanceKey);
             else localStorage.setItem(appearanceKey, v);
