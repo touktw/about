@@ -1,9 +1,10 @@
 <!DOCTYPE html>
-<html lang="ko" data-theme="mist">
+<html lang="ko" data-theme="orange">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="color-scheme" content="dark light">
+  <link rel="stylesheet" href="themes.css">
   <title>about · me</title>
   <script>
     (function () {
@@ -26,610 +27,6 @@
     })();
   </script>
   <style>
-    /*
-      팬톤(Pantone®) 공개 색상값 기준 UI 팔레트.
-      Pantone은 Pantone LLC의 등록상표입니다. 화면용으로 sRGB 근사치를 사용합니다.
-      vivid: 19-4052 Classic Blue / 17-3938 Very Peri
-      mist: 17-3938 Very Peri / 11-4201 Cloud Dancer(톤다운) / Cool Gray 계열
-      sage: 18-5841 Kale / 15-0343 Greenery
-      dawn: 13-1023 Peach Fuzz / 19-0303 Jet Black 기반
-      ocean: 19-4540 Dragonfly / 15-5218 Blue Turquoise
-      rose: 16-1546 Living Coral / 13-1520 Rose Quartz
-      orange: 16-1364 Vibrant Orange / 14-0955 Spicy Orange
-      pink: 14-2311 Pink Lavender / 17-3628 Amethyst Orchid
-      pastel: 13-0822 Sunlight / 12-5403 Iced Aqua / 15-3620 Lavendula
-    */
-    html[data-theme="vivid"] {
-      --bg1: #0a2740;
-      --bg2: #0c3050;
-      --bg3: #0a2842;
-      --accent: #6667ab;
-      --accent2: #4db8d6;
-      --text: #f0f4f8;
-      --muted: #9aa8b8;
-      --card: rgba(15, 40, 65, 0.72);
-      --border: rgba(147, 168, 190, 0.22);
-      --title-a: #ffffff;
-      --title-b: #9eb4dc;
-      --title-c: #5ec8e0;
-      --chip-bg: rgba(102, 103, 171, 0.28);
-      --chip-border: rgba(102, 103, 171, 0.45);
-      --company-bg: rgba(8, 28, 48, 0.55);
-      --hairline: rgba(147, 168, 190, 0.14);
-      --dash: rgba(147, 168, 190, 0.22);
-      --lbl: #b8c8d8;
-      --h3: #e2eaf2;
-      --summary-color: #eef4fa;
-      --heading2: #d0dce8;
-      --emph: #ffffff;
-      --link-under: rgba(77, 184, 214, 0.45);
-      --radius-panel: 1.25rem;
-      --radius-company: 0.85rem;
-      --panel-inset: rgba(255, 255, 255, 0.05);
-      --panel-drop: 0 24px 80px rgba(0, 20, 40, 0.5);
-      --search-bg: rgba(77, 184, 214, 0.15);
-      --search-border: rgba(77, 184, 214, 0.32);
-      --search-hover: rgba(77, 184, 214, 0.25);
-    }
-
-    html[data-theme="mist"] {
-      --bg1: #2e2e3a;
-      --bg2: #363646;
-      --bg3: #30303c;
-      --accent: #8b87c9;
-      --accent2: #7a9ab8;
-      --text: #ececf2;
-      --muted: #9a9aaa;
-      --card: rgba(255, 255, 255, 0.07);
-      --border: rgba(255, 255, 255, 0.1);
-      --title-a: #f6f5fa;
-      --title-b: #b4b0dc;
-      --title-c: #9eb8d4;
-      --chip-bg: rgba(139, 135, 201, 0.22);
-      --chip-border: rgba(255, 255, 255, 0.12);
-      --company-bg: rgba(0, 0, 0, 0.2);
-      --hairline: rgba(255, 255, 255, 0.09);
-      --dash: rgba(255, 255, 255, 0.11);
-      --lbl: #c4c4d4;
-      --h3: #e4e4ee;
-      --summary-color: #ebebf2;
-      --heading2: #d8d8e4;
-      --emph: #e8e6f2;
-      --link-under: rgba(180, 200, 230, 0.38);
-      --radius-panel: 1.35rem;
-      --radius-company: 1rem;
-      --panel-inset: rgba(255, 255, 255, 0.06);
-      --panel-drop: 0 20px 56px rgba(0, 0, 0, 0.35);
-      --search-bg: rgba(122, 154, 184, 0.16);
-      --search-border: rgba(255, 255, 255, 0.12);
-      --search-hover: rgba(122, 154, 184, 0.26);
-    }
-
-    html[data-theme="sage"] {
-      --bg1: #252d26;
-      --bg2: #2d362e;
-      --bg3: #283028;
-      --accent: #7a9f6a;
-      --accent2: #a3b88c;
-      --text: #eef2ee;
-      --muted: #8f9d94;
-      --card: rgba(255, 255, 255, 0.06);
-      --border: rgba(255, 255, 255, 0.09);
-      --title-a: #f4f7f4;
-      --title-b: #a8c97a;
-      --title-c: #b8d4a8;
-      --chip-bg: rgba(122, 159, 106, 0.22);
-      --chip-border: rgba(255, 255, 255, 0.11);
-      --company-bg: rgba(0, 0, 0, 0.18);
-      --hairline: rgba(255, 255, 255, 0.08);
-      --dash: rgba(255, 255, 255, 0.1);
-      --lbl: #bcc9bf;
-      --h3: #e2ebe4;
-      --summary-color: #edf3ee;
-      --heading2: #d5e0d8;
-      --emph: #e8f0ea;
-      --link-under: rgba(163, 184, 140, 0.45);
-      --radius-panel: 1.35rem;
-      --radius-company: 1rem;
-      --panel-inset: rgba(255, 255, 255, 0.05);
-      --panel-drop: 0 20px 52px rgba(0, 0, 0, 0.32);
-      --search-bg: rgba(122, 159, 106, 0.16);
-      --search-border: rgba(255, 255, 255, 0.11);
-      --search-hover: rgba(122, 159, 106, 0.26);
-    }
-
-    html[data-theme="dawn"] {
-      --bg1: #3a2e2a;
-      --bg2: #423630;
-      --bg3: #3a322c;
-      --accent: #d4a58a;
-      --accent2: #c9a090;
-      --text: #f4ece6;
-      --muted: #a89890;
-      --card: rgba(255, 255, 255, 0.07);
-      --border: rgba(255, 255, 255, 0.1);
-      --title-a: #fff8f4;
-      --title-b: #ffbe98;
-      --title-c: #e8a878;
-      --chip-bg: rgba(255, 190, 152, 0.18);
-      --chip-border: rgba(255, 255, 255, 0.12);
-      --company-bg: rgba(0, 0, 0, 0.16);
-      --hairline: rgba(255, 255, 255, 0.08);
-      --dash: rgba(255, 255, 255, 0.1);
-      --lbl: #d0c4bc;
-      --h3: #f0e6e0;
-      --summary-color: #f6ebe4;
-      --heading2: #e4d8d0;
-      --emph: #fff0e8;
-      --link-under: rgba(255, 190, 152, 0.45);
-      --radius-panel: 1.4rem;
-      --radius-company: 1.05rem;
-      --panel-inset: rgba(255, 255, 255, 0.06);
-      --panel-drop: 0 22px 56px rgba(0, 0, 0, 0.28);
-      --search-bg: rgba(255, 190, 152, 0.14);
-      --search-border: rgba(255, 255, 255, 0.12);
-      --search-hover: rgba(255, 190, 152, 0.24);
-    }
-
-    html[data-theme="ocean"] {
-      --bg1: #1a3238;
-      --bg2: #223a42;
-      --bg3: #1e343c;
-      --accent: #3a9bad;
-      --accent2: #6bc4d2;
-      --text: #eef3f6;
-      --muted: #8f9da8;
-      --card: rgba(255, 255, 255, 0.06);
-      --border: rgba(255, 255, 255, 0.1);
-      --title-a: #f4f8fa;
-      --title-b: #5cb0c4;
-      --title-c: #8ad4e0;
-      --chip-bg: rgba(58, 155, 173, 0.22);
-      --chip-border: rgba(255, 255, 255, 0.11);
-      --company-bg: rgba(0, 0, 0, 0.2);
-      --hairline: rgba(255, 255, 255, 0.08);
-      --dash: rgba(255, 255, 255, 0.1);
-      --lbl: #c0cad2;
-      --h3: #e4eaf0;
-      --summary-color: #eef3f7;
-      --heading2: #d8e2ea;
-      --emph: #f0f5f8;
-      --link-under: rgba(107, 196, 210, 0.42);
-      --radius-panel: 1.35rem;
-      --radius-company: 1rem;
-      --panel-inset: rgba(255, 255, 255, 0.055);
-      --panel-drop: 0 20px 54px rgba(0, 0, 0, 0.34);
-      --search-bg: rgba(58, 155, 173, 0.16);
-      --search-border: rgba(255, 255, 255, 0.11);
-      --search-hover: rgba(58, 155, 173, 0.26);
-    }
-
-    html[data-theme="rose"] {
-      --bg1: #3a2a2e;
-      --bg2: #443236;
-      --bg3: #3c2c30;
-      --accent: #e87870;
-      --accent2: #f7cac9;
-      --text: #f8eef2;
-      --muted: #b8a0a8;
-      --card: rgba(255, 255, 255, 0.07);
-      --border: rgba(255, 255, 255, 0.1);
-      --title-a: #fff5f8;
-      --title-b: #ff8a80;
-      --title-c: #f7cac9;
-      --chip-bg: rgba(255, 111, 97, 0.2);
-      --chip-border: rgba(255, 255, 255, 0.12);
-      --company-bg: rgba(0, 0, 0, 0.18);
-      --hairline: rgba(255, 255, 255, 0.08);
-      --dash: rgba(255, 255, 255, 0.1);
-      --lbl: #d4c0c8;
-      --h3: #f2e4ea;
-      --summary-color: #faf0f4;
-      --heading2: #e8d4dc;
-      --emph: #fff0f4;
-      --link-under: rgba(247, 202, 201, 0.5);
-      --radius-panel: 1.4rem;
-      --radius-company: 1.05rem;
-      --panel-inset: rgba(255, 255, 255, 0.06);
-      --panel-drop: 0 22px 56px rgba(0, 0, 0, 0.3);
-      --search-bg: rgba(255, 111, 97, 0.16);
-      --search-border: rgba(255, 255, 255, 0.11);
-      --search-hover: rgba(255, 111, 97, 0.26);
-    }
-
-    html[data-theme="orange"] {
-      --bg1: #3a2818;
-      --bg2: #443020;
-      --bg3: #3c2818;
-      --accent: #e88838;
-      --accent2: #f0a060;
-      --text: #faf4ec;
-      --muted: #b8a090;
-      --card: rgba(255, 255, 255, 0.07);
-      --border: rgba(255, 255, 255, 0.1);
-      --title-a: #fff8f0;
-      --title-b: #f26722;
-      --title-c: #ffb870;
-      --chip-bg: rgba(240, 160, 96, 0.2);
-      --chip-border: rgba(255, 255, 255, 0.12);
-      --company-bg: rgba(0, 0, 0, 0.18);
-      --hairline: rgba(255, 255, 255, 0.08);
-      --dash: rgba(255, 255, 255, 0.1);
-      --lbl: #dcc8b8;
-      --h3: #f5ebe0;
-      --summary-color: #faf4ec;
-      --heading2: #ecd8c8;
-      --emph: #fff4e8;
-      --link-under: rgba(242, 103, 34, 0.45);
-      --radius-panel: 1.4rem;
-      --radius-company: 1.05rem;
-      --panel-inset: rgba(255, 255, 255, 0.055);
-      --panel-drop: 0 22px 56px rgba(0, 0, 0, 0.28);
-      --search-bg: rgba(232, 136, 56, 0.16);
-      --search-border: rgba(255, 255, 255, 0.11);
-      --search-hover: rgba(232, 136, 56, 0.26);
-    }
-
-    html[data-theme="pink"] {
-      --bg1: #342a36;
-      --bg2: #3c3240;
-      --bg3: #362e3a;
-      --accent: #d4b5dc;
-      --accent2: #b565c8;
-      --text: #fdf4fa;
-      --muted: #b8a0b8;
-      --card: rgba(255, 255, 255, 0.07);
-      --border: rgba(255, 255, 255, 0.1);
-      --title-a: #fff8fc;
-      --title-b: #e8b8e8;
-      --title-c: #d4b5dc;
-      --chip-bg: rgba(212, 181, 220, 0.22);
-      --chip-border: rgba(255, 255, 255, 0.12);
-      --company-bg: rgba(0, 0, 0, 0.18);
-      --hairline: rgba(255, 255, 255, 0.08);
-      --dash: rgba(255, 255, 255, 0.1);
-      --lbl: #dcc8dc;
-      --h3: #f8ecf4;
-      --summary-color: #fdf4fa;
-      --heading2: #ecd8ec;
-      --emph: #fff0f8;
-      --link-under: rgba(212, 181, 220, 0.48);
-      --radius-panel: 1.45rem;
-      --radius-company: 1.08rem;
-      --panel-inset: rgba(255, 255, 255, 0.06);
-      --panel-drop: 0 22px 58px rgba(0, 0, 0, 0.32);
-      --search-bg: rgba(212, 181, 220, 0.16);
-      --search-border: rgba(255, 255, 255, 0.11);
-      --search-hover: rgba(212, 181, 220, 0.26);
-    }
-
-    html[data-theme="pastel"] {
-      --bg1: #2e3438;
-      --bg2: #363c42;
-      --bg3: #30363c;
-      --accent: #c8d8e8;
-      --accent2: #b8e0d8;
-      --text: #f2f4f7;
-      --muted: #9ca8b4;
-      --card: rgba(255, 255, 255, 0.07);
-      --border: rgba(255, 255, 255, 0.11);
-      --title-a: #faf8ff;
-      --title-b: #f9e07f;
-      --title-c: #c4b5dc;
-      --chip-bg: rgba(200, 216, 232, 0.2);
-      --chip-border: rgba(255, 255, 255, 0.12);
-      --company-bg: rgba(0, 0, 0, 0.16);
-      --hairline: rgba(255, 255, 255, 0.09);
-      --dash: rgba(255, 255, 255, 0.11);
-      --lbl: #c8d0dc;
-      --h3: #eef2f6;
-      --summary-color: #f4f6f8;
-      --heading2: #dce4ec;
-      --emph: #fafcff;
-      --link-under: rgba(184, 224, 216, 0.42);
-      --radius-panel: 1.45rem;
-      --radius-company: 1.1rem;
-      --panel-inset: rgba(255, 255, 255, 0.07);
-      --panel-drop: 0 20px 52px rgba(0, 0, 0, 0.28);
-      --search-bg: rgba(200, 216, 232, 0.14);
-      --search-border: rgba(255, 255, 255, 0.12);
-      --search-hover: rgba(200, 216, 232, 0.24);
-    }
-
-    html {
-      color-scheme: dark light;
-    }
-    html[data-appearance="dark"] {
-      color-scheme: dark;
-    }
-    html[data-appearance="light"] {
-      color-scheme: light;
-    }
-
-    /* 라이트: 시스템 밝기 또는 “항상 밝음”일 때 (팬톤 톤 유지) */
-    html[data-appearance="light"][data-theme="vivid"] {
-      --bg1: #e4edf6;
-      --bg2: #dce8f4;
-      --bg3: #e8f0f8;
-      --accent: #4a5088;
-      --accent2: #007799;
-      --text: #0f1a28;
-      --muted: #4a5c70;
-      --card: rgba(255, 255, 255, 0.94);
-      --border: rgba(15, 40, 65, 0.1);
-      --title-a: #0f1a28;
-      --title-b: #4a5088;
-      --title-c: #0088aa;
-      --chip-bg: rgba(80, 88, 140, 0.12);
-      --chip-border: rgba(80, 88, 140, 0.22);
-      --company-bg: rgba(15, 76, 120, 0.06);
-      --hairline: rgba(0, 0, 0, 0.08);
-      --dash: rgba(0, 0, 0, 0.1);
-      --lbl: #4a5c70;
-      --h3: #1a2838;
-      --summary-color: #1a2838;
-      --heading2: #3a4a5c;
-      --emph: #0f1a28;
-      --link-under: rgba(0, 119, 153, 0.35);
-      --panel-inset: rgba(0, 0, 0, 0.04);
-      --panel-drop: 0 8px 28px rgba(15, 40, 65, 0.1);
-      --search-bg: rgba(0, 119, 153, 0.1);
-      --search-border: rgba(0, 119, 153, 0.22);
-      --search-hover: rgba(0, 119, 153, 0.16);
-    }
-
-    html[data-appearance="light"][data-theme="mist"] {
-      --bg1: #f0f0f5;
-      --bg2: #f4f4f8;
-      --bg3: #ececf4;
-      --accent: #5a5690;
-      --accent2: #3a6080;
-      --text: #1e1e28;
-      --muted: #5c5c70;
-      --card: rgba(255, 255, 255, 0.95);
-      --border: rgba(0, 0, 0, 0.08);
-      --title-a: #1e1e28;
-      --title-b: #5a5690;
-      --title-c: #3a6080;
-      --chip-bg: rgba(90, 86, 144, 0.12);
-      --chip-border: rgba(90, 86, 144, 0.22);
-      --company-bg: rgba(0, 0, 0, 0.04);
-      --hairline: rgba(0, 0, 0, 0.07);
-      --dash: rgba(0, 0, 0, 0.09);
-      --lbl: #5c5c70;
-      --h3: #2a2a38;
-      --summary-color: #2a2a38;
-      --heading2: #4a4a58;
-      --emph: #1e1e28;
-      --link-under: rgba(58, 96, 128, 0.35);
-      --panel-inset: rgba(0, 0, 0, 0.03);
-      --panel-drop: 0 8px 28px rgba(0, 0, 0, 0.08);
-      --search-bg: rgba(58, 96, 128, 0.1);
-      --search-border: rgba(58, 96, 128, 0.22);
-      --search-hover: rgba(58, 96, 128, 0.16);
-    }
-
-    html[data-appearance="light"][data-theme="sage"] {
-      --bg1: #eef4ee;
-      --bg2: #f2f6f2;
-      --bg3: #eaf2ea;
-      --accent: #4a6c3e;
-      --accent2: #5a8048;
-      --text: #1a241a;
-      --muted: #4a5c4e;
-      --card: rgba(255, 255, 255, 0.95);
-      --border: rgba(0, 0, 0, 0.08);
-      --title-a: #1a241a;
-      --title-b: #5a8048;
-      --title-c: #6a9458;
-      --chip-bg: rgba(74, 108, 62, 0.12);
-      --chip-border: rgba(74, 108, 62, 0.22);
-      --company-bg: rgba(40, 80, 40, 0.06);
-      --hairline: rgba(0, 0, 0, 0.07);
-      --dash: rgba(0, 0, 0, 0.09);
-      --lbl: #4a5c4e;
-      --h3: #243024;
-      --summary-color: #243024;
-      --heading2: #3a4c40;
-      --emph: #1a241a;
-      --link-under: rgba(90, 128, 72, 0.38);
-      --panel-inset: rgba(0, 0, 0, 0.03);
-      --panel-drop: 0 8px 28px rgba(40, 60, 40, 0.08);
-      --search-bg: rgba(74, 108, 62, 0.1);
-      --search-border: rgba(74, 108, 62, 0.22);
-      --search-hover: rgba(74, 108, 62, 0.16);
-    }
-
-    html[data-appearance="light"][data-theme="dawn"] {
-      --bg1: #fff8f4;
-      --bg2: #fff5f0;
-      --bg3: #ffefe8;
-      --accent: #a06040;
-      --accent2: #884830;
-      --text: #3a2e2a;
-      --muted: #6a5850;
-      --card: rgba(255, 255, 255, 0.95);
-      --border: rgba(58, 46, 42, 0.1);
-      --title-a: #3a2e2a;
-      --title-b: #c05820;
-      --title-c: #e88850;
-      --chip-bg: rgba(255, 190, 152, 0.35);
-      --chip-border: rgba(200, 100, 60, 0.2);
-      --company-bg: rgba(255, 160, 120, 0.08);
-      --hairline: rgba(0, 0, 0, 0.07);
-      --dash: rgba(0, 0, 0, 0.09);
-      --lbl: #6a5850;
-      --h3: #3a2e2a;
-      --summary-color: #3a2e2a;
-      --heading2: #5a4840;
-      --emph: #2a201c;
-      --link-under: rgba(192, 88, 32, 0.35);
-      --panel-inset: rgba(0, 0, 0, 0.03);
-      --panel-drop: 0 8px 28px rgba(120, 80, 60, 0.1);
-      --search-bg: rgba(255, 160, 120, 0.2);
-      --search-border: rgba(200, 100, 60, 0.22);
-      --search-hover: rgba(255, 160, 120, 0.32);
-    }
-
-    html[data-appearance="light"][data-theme="ocean"] {
-      --bg1: #e8f4f6;
-      --bg2: #eef6f8;
-      --bg3: #e4f0f4;
-      --accent: #1a7080;
-      --accent2: #2a8a9a;
-      --text: #1a3238;
-      --muted: #4a6068;
-      --card: rgba(255, 255, 255, 0.95);
-      --border: rgba(0, 80, 100, 0.1);
-      --title-a: #1a3238;
-      --title-b: #1a7080;
-      --title-c: #2a9ab0;
-      --chip-bg: rgba(26, 112, 128, 0.12);
-      --chip-border: rgba(26, 112, 128, 0.22);
-      --company-bg: rgba(0, 100, 120, 0.06);
-      --hairline: rgba(0, 0, 0, 0.07);
-      --dash: rgba(0, 0, 0, 0.09);
-      --lbl: #4a6068;
-      --h3: #223a42;
-      --summary-color: #223a42;
-      --heading2: #3a5860;
-      --emph: #1a3238;
-      --link-under: rgba(42, 154, 176, 0.38);
-      --panel-inset: rgba(0, 0, 0, 0.03);
-      --panel-drop: 0 8px 28px rgba(0, 80, 100, 0.1);
-      --search-bg: rgba(26, 112, 128, 0.1);
-      --search-border: rgba(26, 112, 128, 0.22);
-      --search-hover: rgba(26, 112, 128, 0.16);
-    }
-
-    html[data-appearance="light"][data-theme="rose"] {
-      --bg1: #fff5f6;
-      --bg2: #fff0f2;
-      --bg3: #ffe8ec;
-      --accent: #c03838;
-      --accent2: #a02840;
-      --text: #3a2a2e;
-      --muted: #6a5058;
-      --card: rgba(255, 255, 255, 0.95);
-      --border: rgba(160, 40, 60, 0.12);
-      --title-a: #3a2a2e;
-      --title-b: #c03838;
-      --title-c: #e06070;
-      --chip-bg: rgba(255, 111, 97, 0.15);
-      --chip-border: rgba(200, 60, 70, 0.22);
-      --company-bg: rgba(255, 180, 180, 0.12);
-      --hairline: rgba(0, 0, 0, 0.07);
-      --dash: rgba(0, 0, 0, 0.09);
-      --lbl: #6a5058;
-      --h3: #3a2a2e;
-      --summary-color: #3a2a2e;
-      --heading2: #5a4048;
-      --emph: #2a1a20;
-      --link-under: rgba(192, 56, 56, 0.35);
-      --panel-inset: rgba(0, 0, 0, 0.03);
-      --panel-drop: 0 8px 28px rgba(160, 60, 70, 0.1);
-      --search-bg: rgba(255, 111, 97, 0.12);
-      --search-border: rgba(200, 60, 70, 0.22);
-      --search-hover: rgba(255, 111, 97, 0.22);
-    }
-
-    html[data-appearance="light"][data-theme="orange"] {
-      --bg1: #fffaf5;
-      --bg2: #fff6ee;
-      --bg3: #ffefe4;
-      --accent: #c05010;
-      --accent2: #a84008;
-      --text: #3a2818;
-      --muted: #6a5848;
-      --card: rgba(255, 255, 255, 0.95);
-      --border: rgba(200, 100, 20, 0.12);
-      --title-a: #3a2818;
-      --title-b: #d04000;
-      --title-c: #e07020;
-      --chip-bg: rgba(240, 160, 96, 0.22);
-      --chip-border: rgba(200, 100, 20, 0.22);
-      --company-bg: rgba(255, 200, 140, 0.15);
-      --hairline: rgba(0, 0, 0, 0.07);
-      --dash: rgba(0, 0, 0, 0.09);
-      --lbl: #6a5848;
-      --h3: #3a2818;
-      --summary-color: #3a2818;
-      --heading2: #5a4838;
-      --emph: #281810;
-      --link-under: rgba(208, 64, 0, 0.35);
-      --panel-inset: rgba(0, 0, 0, 0.03);
-      --panel-drop: 0 8px 28px rgba(200, 100, 20, 0.1);
-      --search-bg: rgba(240, 160, 96, 0.18);
-      --search-border: rgba(200, 100, 20, 0.22);
-      --search-hover: rgba(240, 160, 96, 0.28);
-    }
-
-    html[data-appearance="light"][data-theme="pink"] {
-      --bg1: #faf6fc;
-      --bg2: #f8f2fa;
-      --bg3: #f4ecf8;
-      --accent: #7040a0;
-      --accent2: #582888;
-      --text: #342a36;
-      --muted: #5a4860;
-      --card: rgba(255, 255, 255, 0.95);
-      --border: rgba(100, 40, 120, 0.12);
-      --title-a: #342a36;
-      --title-b: #8840a8;
-      --title-c: #a070c0;
-      --chip-bg: rgba(112, 64, 160, 0.12);
-      --chip-border: rgba(112, 64, 160, 0.22);
-      --company-bg: rgba(200, 160, 220, 0.12);
-      --hairline: rgba(0, 0, 0, 0.07);
-      --dash: rgba(0, 0, 0, 0.09);
-      --lbl: #5a4860;
-      --h3: #342a36;
-      --summary-color: #342a36;
-      --heading2: #504058;
-      --emph: #241828;
-      --link-under: rgba(112, 64, 160, 0.35);
-      --panel-inset: rgba(0, 0, 0, 0.03);
-      --panel-drop: 0 8px 28px rgba(100, 40, 120, 0.08);
-      --search-bg: rgba(112, 64, 160, 0.1);
-      --search-border: rgba(112, 64, 160, 0.22);
-      --search-hover: rgba(112, 64, 160, 0.16);
-    }
-
-    html[data-appearance="light"][data-theme="pastel"] {
-      --bg1: #f6f8fa;
-      --bg2: #f8fafc;
-      --bg3: #f0f4f6;
-      --accent: #406880;
-      --accent2: #2a7868;
-      --text: #2e3438;
-      --muted: #5a646c;
-      --card: rgba(255, 255, 255, 0.95);
-      --border: rgba(0, 0, 0, 0.08);
-      --title-a: #2e3438;
-      --title-b: #b08020;
-      --title-c: #6060a0;
-      --chip-bg: rgba(100, 130, 160, 0.12);
-      --chip-border: rgba(100, 130, 160, 0.22);
-      --company-bg: rgba(180, 200, 220, 0.15);
-      --hairline: rgba(0, 0, 0, 0.07);
-      --dash: rgba(0, 0, 0, 0.09);
-      --lbl: #5a646c;
-      --h3: #2e3438;
-      --summary-color: #2e3438;
-      --heading2: #4a545c;
-      --emph: #1c2024;
-      --link-under: rgba(42, 120, 104, 0.35);
-      --panel-inset: rgba(0, 0, 0, 0.03);
-      --panel-drop: 0 8px 28px rgba(0, 0, 0, 0.08);
-      --search-bg: rgba(100, 130, 160, 0.1);
-      --search-border: rgba(100, 130, 160, 0.22);
-      --search-hover: rgba(100, 130, 160, 0.16);
-    }
-
-    html[data-appearance="light"] .theme-picker select:focus {
-      box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.08);
-    }
-
     * { box-sizing: border-box; }
     body {
       margin: 0;
@@ -896,69 +293,41 @@
       font-weight: 700;
       letter-spacing: 0.14em;
       text-transform: uppercase;
-      color: var(--text);
-      opacity: 0.5;
-      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
-    }
-    html[data-appearance="light"] .appearance-glass__caption {
-      text-shadow: 0 1px 0 rgba(255, 255, 255, 0.8);
+      color: var(--muted);
     }
     .appearance-glass {
       display: flex;
-      padding: 5px;
-      gap: 3px;
-      border-radius: 100px;
-      background: linear-gradient(
-        165deg,
-        rgba(255, 255, 255, 0.34) 0%,
-        rgba(255, 255, 255, 0.08) 42%,
-        rgba(255, 255, 255, 0.05) 100%
-      );
-      backdrop-filter: blur(36px) saturate(190%);
-      -webkit-backdrop-filter: blur(36px) saturate(190%);
-      border: 1px solid rgba(255, 255, 255, 0.32);
+      padding: 4px;
+      gap: 2px;
+      border-radius: var(--radius-company);
+      background: var(--company-bg);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid var(--border);
       box-shadow:
-        0 10px 40px rgba(0, 0, 0, 0.22),
-        0 2px 12px rgba(0, 0, 0, 0.12),
-        inset 0 1px 1px rgba(255, 255, 255, 0.55),
-        inset 0 -1px 1px rgba(0, 0, 0, 0.08);
-    }
-    html[data-appearance="light"] .appearance-glass {
-      background: linear-gradient(
-        165deg,
-        rgba(255, 255, 255, 0.75) 0%,
-        rgba(255, 255, 255, 0.45) 50%,
-        rgba(255, 255, 255, 0.35) 100%
-      );
-      border-color: rgba(0, 0, 0, 0.08);
-      box-shadow:
-        0 10px 36px rgba(0, 0, 0, 0.1),
-        0 2px 8px rgba(0, 0, 0, 0.06),
-        inset 0 1px 1px rgba(255, 255, 255, 0.9),
-        inset 0 -1px 1px rgba(0, 0, 0, 0.04);
+        0 0 0 1px var(--panel-inset) inset,
+        var(--panel-drop);
     }
     .appearance-glass__seg {
       flex: 0 1 auto;
       min-width: 3.1rem;
       padding: 0.48rem 0.72rem;
       border: none;
-      border-radius: 100px;
+      border-radius: calc(var(--radius-company) - 4px);
       font: inherit;
       font-size: 0.72rem;
       font-weight: 600;
       letter-spacing: 0.04em;
-      color: var(--text);
-      opacity: 0.55;
+      color: var(--muted);
       background: transparent;
       cursor: pointer;
       transition:
-        opacity 0.2s ease,
-        background 0.28s ease,
-        box-shadow 0.28s ease,
+        color 0.2s ease,
+        background 0.22s ease,
         transform 0.12s ease;
     }
     .appearance-glass__seg:hover {
-      opacity: 0.88;
+      color: var(--accent2);
     }
     .appearance-glass__seg:active {
       transform: scale(0.97);
@@ -968,26 +337,9 @@
       outline-offset: 3px;
     }
     .appearance-glass__seg[aria-checked="true"] {
-      opacity: 1;
-      background: linear-gradient(
-        180deg,
-        rgba(255, 255, 255, 0.52) 0%,
-        rgba(255, 255, 255, 0.16) 100%
-      );
-      box-shadow:
-        0 3px 14px rgba(0, 0, 0, 0.14),
-        inset 0 1px 1px rgba(255, 255, 255, 0.75),
-        inset 0 -1px 1px rgba(0, 0, 0, 0.06);
-    }
-    html[data-appearance="light"] .appearance-glass__seg[aria-checked="true"] {
-      background: linear-gradient(
-        180deg,
-        rgba(255, 255, 255, 0.95) 0%,
-        rgba(255, 255, 255, 0.65) 100%
-      );
-      box-shadow:
-        0 2px 10px rgba(0, 0, 0, 0.08),
-        inset 0 1px 1px rgba(255, 255, 255, 1);
+      color: var(--accent);
+      background: var(--chip-bg);
+      border: 1px solid var(--chip-border);
     }
     @media (prefers-reduced-motion: reduce) {
       .appearance-glass__seg {
@@ -1028,29 +380,30 @@
   </style>
 </head>
 <body>
-  <div class="appearance-glass-wrap">
-    <span class="appearance-glass__caption" id="appearance-glass-label">테마</span>
-    <div
-      class="appearance-glass"
-      role="radiogroup"
-      aria-labelledby="appearance-glass-label"
-    >
-      <button type="button" class="appearance-glass__seg" role="radio" data-appearance-set="light" aria-checked="false">
-        Light
-      </button>
-      <button type="button" class="appearance-glass__seg" role="radio" data-appearance-set="dark" aria-checked="false">
-        Dark
-      </button>
-      <button type="button" class="appearance-glass__seg" role="radio" data-appearance-set="system" aria-checked="false">
-        System
-      </button>
-    </div>
-  </div>
+  
 
   <div class="page">
     <header class="panel">
       <div class="header-top">
         <p class="eyebrow">Android · Kotlin</p>
+        <div class="appearance-glass-wrap">
+          <span class="appearance-glass__caption" id="appearance-glass-label"></span>
+          <div
+            class="appearance-glass"
+            role="radiogroup"
+            aria-labelledby="appearance-glass-label"
+          >
+            <button type="button" class="appearance-glass__seg" role="radio" data-appearance-set="light" aria-checked="false">
+              Light
+            </button>
+            <button type="button" class="appearance-glass__seg" role="radio" data-appearance-set="dark" aria-checked="false">
+              Dark
+            </button>
+            <button type="button" class="appearance-glass__seg" role="radio" data-appearance-set="system" aria-checked="true">
+              System
+            </button>
+          </div>
+        </div>
         <div class="pickers">
           <div class="theme-picker">
             <label for="theme-select">화면 테마</label>
@@ -1064,14 +417,12 @@
               <option value="pink">핑크 라벤더 14-2311</option>
               <option value="pastel">선라이트 / 아이스 아쿠아 / 라벤듈라</option>
               <option value="vivid">클래식 블루 19-4052</option>
+              <option value="android">Android · #3DDC84</option>
             </select>
           </div>
         </div>
       </div>
-      <p id="theme-hint" class="hint theme-hint">
-        팔레트는 Pantone® 색상의 sRGB 근사치입니다. 우상단 <strong>테마</strong>는 Light / Dark / System(기본)이며, System일 때 <code>prefers-color-scheme</code>을 따릅니다. 설정은 이 브라우저에만 저장됩니다.
-      </p>
-      <h1>소개</h1>
+      <h1>Tae.Kim</h1>
       <p class="lead">
         커뮤니티·커머스·핀테크·헬스케어 등 <strong class="lead-strong">여러 도메인</strong>의 앱·라이브러리를 다뤄 왔습니다.
         아래는 경력·프로젝트 기준으로 정리한 내용입니다.
@@ -1343,7 +694,7 @@
     (function () {
       var themeKey = "about-theme";
       var appearanceKey = "about-appearance";
-      var allowed = ["mist", "sage", "dawn", "ocean", "rose", "orange", "pink", "pastel", "vivid"];
+      var allowed = ["mist", "sage", "dawn", "ocean", "rose", "orange", "pink", "pastel", "vivid", "android"];
       var root = document.documentElement;
       var themeSelect = document.getElementById("theme-select");
       var appearanceGlass = document.querySelector(".appearance-glass");
@@ -1387,7 +738,7 @@
         savedTheme = localStorage.getItem(themeKey);
       } catch (e) {}
       applyTheme(
-        savedTheme && allowed.indexOf(savedTheme) !== -1 ? savedTheme : root.getAttribute("data-theme") || "mist"
+        savedTheme && allowed.indexOf(savedTheme) !== -1 ? savedTheme : root.getAttribute("data-theme") || "orange"
       );
       applyAppearance();
 
@@ -1413,6 +764,14 @@
           } catch (e) {}
           applyAppearance();
         });
+      }
+
+      var isLocal = location.hostname === "localhost" || location.hostname === "127.0.0.1" || location.hostname === "";
+      if (!isLocal) {
+        var picker = document.querySelector(".theme-picker");
+        var hint = document.getElementById("theme-hint");
+        if (picker) picker.style.display = "none";
+        if (hint) hint.style.display = "none";
       }
     })();
   </script>
