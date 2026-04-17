@@ -1,21 +1,193 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="ko" data-theme="mist">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>소개 · 경력</title>
   <style>
-    :root {
+    /*
+      테마: vivid(기존) | mist(안개 라벤더) | sage(세이지) | dawn(따뜻한 새벽) | ocean(펄 오션)
+    */
+    html[data-theme="vivid"] {
       --bg1: #0f0c29;
       --bg2: #302b63;
       --bg3: #24243e;
+      --spot1: rgba(124, 58, 237, 0.35);
+      --spot2: rgba(34, 211, 238, 0.2);
       --accent: #7c3aed;
       --accent2: #22d3ee;
       --text: #f8fafc;
       --muted: #94a3b8;
       --card: rgba(15, 23, 42, 0.55);
       --border: rgba(148, 163, 184, 0.2);
+      --title-a: #fff;
+      --title-b: #c4b5fd;
+      --title-c: #67e8f9;
+      --chip-bg: rgba(124, 58, 237, 0.2);
+      --chip-border: rgba(124, 58, 237, 0.35);
+      --company-bg: rgba(2, 6, 23, 0.35);
+      --hairline: rgba(148, 163, 184, 0.12);
+      --dash: rgba(148, 163, 184, 0.2);
+      --lbl: #cbd5e1;
+      --h3: #e2e8f0;
+      --summary-color: #f1f5f9;
+      --heading2: #e2e8f0;
+      --emph: #e2e8f0;
+      --link-under: rgba(34, 211, 238, 0.35);
+      --glow-op: 0.3;
+      --radius-panel: 1.25rem;
+      --radius-company: 0.85rem;
+      --panel-inset: rgba(255, 255, 255, 0.04);
+      --panel-drop: 0 24px 80px rgba(0, 0, 0, 0.45);
+      --search-bg: rgba(34, 211, 238, 0.1);
+      --search-border: rgba(34, 211, 238, 0.28);
+      --search-hover: rgba(34, 211, 238, 0.18);
     }
+
+    html[data-theme="mist"] {
+      --bg1: #18181f;
+      --bg2: #22222c;
+      --bg3: #1c1c26;
+      --spot1: rgba(180, 170, 220, 0.14);
+      --spot2: rgba(150, 190, 230, 0.1);
+      --accent: #a69fd4;
+      --accent2: #9bb4d4;
+      --text: #ececf2;
+      --muted: #9b9baa;
+      --card: rgba(255, 255, 255, 0.055);
+      --border: rgba(255, 255, 255, 0.09);
+      --title-a: #f6f5fa;
+      --title-b: #c8c0e6;
+      --title-c: #b8cce8;
+      --chip-bg: rgba(166, 159, 212, 0.14);
+      --chip-border: rgba(255, 255, 255, 0.1);
+      --company-bg: rgba(0, 0, 0, 0.18);
+      --hairline: rgba(255, 255, 255, 0.08);
+      --dash: rgba(255, 255, 255, 0.1);
+      --lbl: #c4c4d4;
+      --h3: #e4e4ee;
+      --summary-color: #ebebf2;
+      --heading2: #d8d8e4;
+      --emph: #e8e6f2;
+      --link-under: rgba(180, 200, 230, 0.35);
+      --glow-op: 0.22;
+      --radius-panel: 1.35rem;
+      --radius-company: 1rem;
+      --panel-inset: rgba(255, 255, 255, 0.06);
+      --panel-drop: 0 20px 56px rgba(0, 0, 0, 0.32);
+      --search-bg: rgba(155, 180, 212, 0.12);
+      --search-border: rgba(255, 255, 255, 0.12);
+      --search-hover: rgba(155, 180, 212, 0.2);
+    }
+
+    html[data-theme="sage"] {
+      --bg1: #1a1f1c;
+      --bg2: #242b26;
+      --bg3: #1e2520;
+      --spot1: rgba(140, 190, 155, 0.12);
+      --spot2: rgba(170, 195, 180, 0.08);
+      --accent: #8fb89f;
+      --accent2: #b5c9b8;
+      --text: #eef2ee;
+      --muted: #8f9d94;
+      --card: rgba(255, 255, 255, 0.045);
+      --border: rgba(255, 255, 255, 0.08);
+      --title-a: #f4f7f4;
+      --title-b: #c5dcc8;
+      --title-c: #d2e0d4;
+      --chip-bg: rgba(143, 184, 159, 0.14);
+      --chip-border: rgba(255, 255, 255, 0.1);
+      --company-bg: rgba(0, 0, 0, 0.16);
+      --hairline: rgba(255, 255, 255, 0.07);
+      --dash: rgba(255, 255, 255, 0.09);
+      --lbl: #bcc9bf;
+      --h3: #e2ebe4;
+      --summary-color: #edf3ee;
+      --heading2: #d5e0d8;
+      --emph: #e8f0ea;
+      --link-under: rgba(181, 201, 184, 0.45);
+      --glow-op: 0.2;
+      --radius-panel: 1.35rem;
+      --radius-company: 1rem;
+      --panel-inset: rgba(255, 255, 255, 0.05);
+      --panel-drop: 0 20px 52px rgba(0, 0, 0, 0.3);
+      --search-bg: rgba(143, 184, 159, 0.12);
+      --search-border: rgba(255, 255, 255, 0.11);
+      --search-hover: rgba(143, 184, 159, 0.2);
+    }
+
+    html[data-theme="dawn"] {
+      --bg1: #221f1e;
+      --bg2: #2c2624;
+      --bg3: #252018;
+      --spot1: rgba(210, 170, 150, 0.11);
+      --spot2: rgba(200, 185, 165, 0.08);
+      --accent: #c4a896;
+      --accent2: #d0c0a8;
+      --text: #f4ece6;
+      --muted: #a89890;
+      --card: rgba(255, 255, 255, 0.05);
+      --border: rgba(255, 255, 255, 0.09);
+      --title-a: #fff8f4;
+      --title-b: #e8c8b8;
+      --title-c: #dcc8b0;
+      --chip-bg: rgba(196, 168, 150, 0.15);
+      --chip-border: rgba(255, 255, 255, 0.1);
+      --company-bg: rgba(0, 0, 0, 0.15);
+      --hairline: rgba(255, 255, 255, 0.07);
+      --dash: rgba(255, 255, 255, 0.09);
+      --lbl: #d0c4bc;
+      --h3: #f0e6e0;
+      --summary-color: #f6ebe4;
+      --heading2: #e4d8d0;
+      --emph: #fff0e8;
+      --link-under: rgba(208, 192, 168, 0.45);
+      --glow-op: 0.2;
+      --radius-panel: 1.4rem;
+      --radius-company: 1.05rem;
+      --panel-inset: rgba(255, 255, 255, 0.06);
+      --panel-drop: 0 22px 56px rgba(0, 0, 0, 0.28);
+      --search-bg: rgba(196, 168, 150, 0.12);
+      --search-border: rgba(255, 255, 255, 0.11);
+      --search-hover: rgba(196, 168, 150, 0.22);
+    }
+
+    html[data-theme="ocean"] {
+      --bg1: #1a2228;
+      --bg2: #242e36;
+      --bg3: #1e2830;
+      --spot1: rgba(130, 175, 195, 0.13);
+      --spot2: rgba(150, 175, 195, 0.09);
+      --accent: #8baabe;
+      --accent2: #a8b8c8;
+      --text: #eef3f6;
+      --muted: #8f9da8;
+      --card: rgba(255, 255, 255, 0.05);
+      --border: rgba(255, 255, 255, 0.09);
+      --title-a: #f4f8fa;
+      --title-b: #b8d0e0;
+      --title-c: #c8d4e0;
+      --chip-bg: rgba(139, 170, 190, 0.14);
+      --chip-border: rgba(255, 255, 255, 0.1);
+      --company-bg: rgba(0, 0, 0, 0.17);
+      --hairline: rgba(255, 255, 255, 0.08);
+      --dash: rgba(255, 255, 255, 0.1);
+      --lbl: #c0cad2;
+      --h3: #e4eaf0;
+      --summary-color: #eef3f7;
+      --heading2: #d8e2ea;
+      --emph: #f0f5f8;
+      --link-under: rgba(168, 184, 200, 0.4);
+      --glow-op: 0.22;
+      --radius-panel: 1.35rem;
+      --radius-company: 1rem;
+      --panel-inset: rgba(255, 255, 255, 0.055);
+      --panel-drop: 0 20px 54px rgba(0, 0, 0, 0.32);
+      --search-bg: rgba(139, 170, 190, 0.12);
+      --search-border: rgba(255, 255, 255, 0.11);
+      --search-hover: rgba(139, 170, 190, 0.2);
+    }
+
     * { box-sizing: border-box; }
     body {
       margin: 0;
@@ -23,8 +195,8 @@
       font-family: ui-sans-serif, system-ui, "Segoe UI", Roboto, "Apple SD Gothic Neo", sans-serif;
       color: var(--text);
       background:
-        radial-gradient(1200px 600px at 20% -10%, rgba(124, 58, 237, 0.35), transparent 55%),
-        radial-gradient(900px 500px at 100% 20%, rgba(34, 211, 238, 0.2), transparent 50%),
+        radial-gradient(1200px 600px at 20% -10%, var(--spot1), transparent 55%),
+        radial-gradient(900px 500px at 100% 20%, var(--spot2), transparent 50%),
         linear-gradient(160deg, var(--bg1), var(--bg2) 45%, var(--bg3));
     }
     .glow {
@@ -37,7 +209,7 @@
       border-radius: 50%;
       background: conic-gradient(from 210deg, var(--accent), transparent 40%, var(--accent2), transparent 75%, var(--accent));
       filter: blur(80px);
-      opacity: 0.3;
+      opacity: var(--glow-op);
       animation: spin 28s linear infinite;
       pointer-events: none;
       z-index: 0;
@@ -53,12 +225,12 @@
     }
 
     .panel {
-      border-radius: 1.25rem;
+      border-radius: var(--radius-panel);
       background: var(--card);
       border: 1px solid var(--border);
       box-shadow:
-        0 0 0 1px rgba(255, 255, 255, 0.04) inset,
-        0 24px 80px rgba(0, 0, 0, 0.45);
+        0 0 0 1px var(--panel-inset) inset,
+        var(--panel-drop);
       backdrop-filter: blur(12px);
       padding: clamp(1.25rem, 3vw, 1.75rem);
       margin-bottom: 1rem;
@@ -77,7 +249,7 @@
       font-size: clamp(1.65rem, 4vw, 2rem);
       font-weight: 700;
       letter-spacing: -0.03em;
-      background: linear-gradient(120deg, #fff 0%, #c4b5fd 45%, #67e8f9 100%);
+      background: linear-gradient(120deg, var(--title-a) 0%, var(--title-b) 45%, var(--title-c) 100%);
       -webkit-background-clip: text;
       background-clip: text;
       color: transparent;
@@ -94,7 +266,7 @@
       font-size: 0.85rem;
       font-weight: 600;
       letter-spacing: 0.04em;
-      color: #e2e8f0;
+      color: var(--heading2);
       text-transform: uppercase;
     }
 
@@ -111,14 +283,14 @@
       border-radius: 0.5rem;
       font-size: 0.78rem;
       color: var(--text);
-      background: rgba(124, 58, 237, 0.2);
-      border: 1px solid rgba(124, 58, 237, 0.35);
+      background: var(--chip-bg);
+      border: 1px solid var(--chip-border);
     }
 
     details.company {
-      border-radius: 0.85rem;
+      border-radius: var(--radius-company);
       border: 1px solid var(--border);
-      background: rgba(2, 6, 23, 0.35);
+      background: var(--company-bg);
       margin-bottom: 0.65rem;
       overflow: clip;
     }
@@ -127,7 +299,7 @@
       cursor: pointer;
       padding: 0.85rem 1rem;
       font-weight: 600;
-      color: #f1f5f9;
+      color: var(--summary-color);
       display: flex;
       flex-wrap: wrap;
       align-items: baseline;
@@ -152,13 +324,13 @@
 
     .company-body {
       padding: 0 1rem 1rem;
-      border-top: 1px solid rgba(148, 163, 184, 0.12);
+      border-top: 1px solid var(--hairline);
     }
 
     .project {
       margin-top: 1.1rem;
       padding-top: 1rem;
-      border-top: 1px dashed rgba(148, 163, 184, 0.2);
+      border-top: 1px dashed var(--dash);
     }
     .project:first-child {
       margin-top: 0;
@@ -170,12 +342,12 @@
       margin: 0 0 0.35rem;
       font-size: 1rem;
       font-weight: 600;
-      color: #e2e8f0;
+      color: var(--h3);
     }
     .project h3 a {
       color: inherit;
       text-decoration: none;
-      border-bottom: 1px solid rgba(34, 211, 238, 0.35);
+      border-bottom: 1px solid var(--link-under);
     }
     .project h3 a:hover { color: var(--accent2); }
 
@@ -192,7 +364,7 @@
       font-weight: 700;
       letter-spacing: 0.06em;
       text-transform: uppercase;
-      color: #cbd5e1;
+      color: var(--lbl);
     }
     .blk p, .project > p {
       margin: 0;
@@ -227,7 +399,7 @@
     footer a {
       color: var(--accent2);
       text-decoration: none;
-      border-bottom: 1px solid rgba(34, 211, 238, 0.35);
+      border-bottom: 1px solid var(--link-under);
     }
 
     .search-row {
@@ -240,18 +412,69 @@
       font-size: 0.82rem;
       padding: 0.25rem 0.55rem;
       border-radius: 0.45rem;
-      background: rgba(34, 211, 238, 0.1);
-      border: 1px solid rgba(34, 211, 238, 0.28);
+      background: var(--search-bg);
+      border: 1px solid var(--search-border);
       color: var(--accent2);
       text-decoration: none;
     }
     .search-row a:hover {
-      background: rgba(34, 211, 238, 0.18);
+      background: var(--search-hover);
     }
     .hint {
       margin: 0 0 0.35rem;
       font-size: 0.82rem;
       color: var(--muted);
+    }
+
+    .lead-strong {
+      color: var(--emph);
+      font-weight: 600;
+    }
+
+    .header-top {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 0.75rem 1rem;
+      margin-bottom: 0.35rem;
+    }
+    .header-top .eyebrow {
+      margin: 0;
+    }
+    .theme-picker {
+      flex-shrink: 0;
+    }
+    .theme-picker label {
+      display: block;
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 0.3rem;
+    }
+    .theme-picker select {
+      font: inherit;
+      font-size: 0.85rem;
+      min-width: 11rem;
+      padding: 0.45rem 0.65rem;
+      border-radius: 0.55rem;
+      border: 1px solid var(--border);
+      background: var(--company-bg);
+      color: var(--text);
+      cursor: pointer;
+    }
+    .theme-picker select:hover,
+    .theme-picker select:focus {
+      border-color: var(--accent);
+      outline: none;
+    }
+    .theme-picker select:focus {
+      box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.08);
+    }
+    .theme-hint {
+      margin: 0 0 0.75rem;
     }
   </style>
 </head>
@@ -259,10 +482,23 @@
   <div class="glow" aria-hidden="true"></div>
   <div class="page">
     <header class="panel">
-      <p class="eyebrow">Android · Kotlin</p>
+      <div class="header-top">
+        <p class="eyebrow">Android · Kotlin</p>
+        <div class="theme-picker">
+          <label for="theme-select">화면 테마</label>
+          <select id="theme-select" aria-describedby="theme-hint">
+            <option value="mist">안개 라벤더 (부드러운 쿨)</option>
+            <option value="sage">세이지 (그린 그레이)</option>
+            <option value="dawn">따뜻한 새벽 (웜 톤)</option>
+            <option value="ocean">펄 오션 (블루 그레이)</option>
+            <option value="vivid">비비드 (기존 대비)</option>
+          </select>
+        </div>
+      </div>
+      <p id="theme-hint" class="hint theme-hint">선택한 테마는 이 브라우저에만 저장됩니다.</p>
       <h1>소개</h1>
       <p class="lead">
-        커뮤니티·커머스·핀테크·헬스케어 등 <strong style="color:#e2e8f0">여러 도메인</strong>의 앱·라이브러리를 다뤄 왔습니다.
+        커뮤니티·커머스·핀테크·헬스케어 등 <strong class="lead-strong">여러 도메인</strong>의 앱·라이브러리를 다뤄 왔습니다.
         아래는 경력·프로젝트 기준으로 정리한 내용입니다.
       </p>
     </header>
@@ -527,5 +763,32 @@
       <a href="https://github.com/touktw" rel="noopener noreferrer">GitHub</a>
     </footer>
   </div>
+
+  <script>
+    (function () {
+      var key = "about-theme";
+      var allowed = ["mist", "sage", "dawn", "ocean", "vivid"];
+      var root = document.documentElement;
+      var select = document.getElementById("theme-select");
+      function apply(t) {
+        if (allowed.indexOf(t) === -1) t = "mist";
+        root.setAttribute("data-theme", t);
+        if (select) select.value = t;
+        try {
+          localStorage.setItem(key, t);
+        } catch (e) {}
+      }
+      var saved = null;
+      try {
+        saved = localStorage.getItem(key);
+      } catch (e) {}
+      apply(saved && allowed.indexOf(saved) !== -1 ? saved : root.getAttribute("data-theme") || "mist");
+      if (select) {
+        select.addEventListener("change", function () {
+          apply(select.value);
+        });
+      }
+    })();
+  </script>
 </body>
 </html>
