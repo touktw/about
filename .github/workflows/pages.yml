@@ -48,6 +48,13 @@ jobs:
           rsync -a --exclude='.git' _androiddeveloper/docs/site/ _site/projects/androiddeveloper/
           rsync -a --exclude='.git' _adbtool/docs/site/ _site/projects/adbtool/
 
+          if [ -f "_site/projects/androiddeveloper/download.html" ]; then
+            mv -f _site/projects/androiddeveloper/download.html _site/projects/androiddeveloper/index.html
+          fi
+          if [ -f "_site/projects/adbtool/download.html" ]; then
+            mv -f _site/projects/adbtool/download.html _site/projects/adbtool/index.html
+          fi
+
       - uses: actions/configure-pages@v5
 
       - uses: actions/upload-pages-artifact@v3
