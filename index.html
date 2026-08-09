@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ko" data-theme="orange">
+<html lang="ko">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -7,34 +7,14 @@
   <link rel="stylesheet" href="themes.css">
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <title>about · me</title>
-  <script>
-    (function () {
-      function mode() {
-        try {
-          var m = localStorage.getItem("about-appearance");
-          if (m === "dark" || m === "light") return m;
-        } catch (e) {}
-        return "system";
-      }
-      function resolved() {
-        var d = mode();
-        if (d === "light") return "light";
-        if (d === "dark") return "dark";
-        return window.matchMedia && window.matchMedia("(prefers-color-scheme: light)").matches
-          ? "light"
-          : "dark";
-      }
-      document.documentElement.dataset.appearance = resolved();
-    })();
-  </script>
   <style>
     * { box-sizing: border-box; }
     body {
       margin: 0;
       min-height: 100vh;
-      font-family: ui-sans-serif, system-ui, "Segoe UI", Roboto, "Apple SD Gothic Neo", sans-serif;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Pretendard, Roboto, "Apple SD Gothic Neo", "Noto Sans KR", sans-serif;
       color: var(--text);
-      background: var(--bg2);
+      background: var(--bg);
     }
 
     .page {
@@ -46,13 +26,10 @@
     }
 
     .panel {
-      border-radius: var(--radius-panel);
-      background: var(--card);
+      border-radius: 14px;
+      background: var(--surface);
       border: 1px solid var(--border);
-      box-shadow:
-        0 0 0 1px var(--panel-inset) inset,
-        var(--panel-drop);
-      backdrop-filter: blur(12px);
+      box-shadow: var(--shadow);
       padding: clamp(1.25rem, 3vw, 1.75rem);
       margin-bottom: 1rem;
     }
@@ -63,22 +40,19 @@
       font-weight: 600;
       letter-spacing: 0.08em;
       text-transform: uppercase;
-      color: var(--accent2);
+      color: var(--accent);
     }
     h1 {
       margin: 0 0 0.75rem;
       font-size: clamp(1.65rem, 4vw, 2rem);
       font-weight: 700;
       letter-spacing: -0.03em;
-      background: linear-gradient(120deg, var(--title-a) 0%, var(--title-b) 45%, var(--title-c) 100%);
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
+      color: var(--text);
     }
     .lead {
       margin: 0;
       line-height: 1.65;
-      color: var(--muted);
+      color: var(--text-dim);
       font-size: 0.95rem;
     }
 
@@ -87,7 +61,7 @@
       font-size: 0.85rem;
       font-weight: 600;
       letter-spacing: 0.04em;
-      color: var(--heading2);
+      color: var(--text-dim);
       text-transform: uppercase;
     }
 
@@ -104,14 +78,14 @@
       border-radius: 0.5rem;
       font-size: 0.78rem;
       color: var(--text);
-      background: var(--chip-bg);
-      border: 1px solid var(--chip-border);
+      background: var(--code-bg);
+      border: 1px solid var(--border);
     }
 
     details.company {
-      border-radius: var(--radius-company);
+      border-radius: 10px;
       border: 1px solid var(--border);
-      background: var(--company-bg);
+      background: var(--surface);
       margin-bottom: 0.65rem;
       overflow: clip;
     }
@@ -120,7 +94,7 @@
       cursor: pointer;
       padding: 0.85rem 1rem;
       font-weight: 600;
-      color: var(--summary-color);
+      color: var(--text);
       display: flex;
       flex-wrap: wrap;
       align-items: baseline;
@@ -130,7 +104,7 @@
     details.company > summary::after {
       content: "▸";
       margin-left: auto;
-      color: var(--accent2);
+      color: var(--accent);
       font-size: 0.85rem;
       transition: transform 0.2s;
     }
@@ -139,19 +113,19 @@
     .company-range {
       font-size: 0.8rem;
       font-weight: 500;
-      color: var(--accent2);
+      color: var(--accent);
       font-variant-numeric: tabular-nums;
     }
 
     .company-body {
       padding: 0 1rem 1rem;
-      border-top: 1px solid var(--hairline);
+      border-top: 1px solid var(--border);
     }
 
     .project {
       margin-top: 1.1rem;
       padding-top: 1rem;
-      border-top: 1px dashed var(--dash);
+      border-top: 1px dashed var(--border);
     }
     .project:first-child {
       margin-top: 0;
@@ -163,19 +137,19 @@
       margin: 0 0 0.35rem;
       font-size: 1rem;
       font-weight: 600;
-      color: var(--h3);
+      color: var(--text);
     }
     .project h3 a {
       color: inherit;
       text-decoration: none;
-      border-bottom: 1px solid var(--link-under);
+      border-bottom: 1px solid var(--border);
     }
-    .project h3 a:hover { color: var(--accent2); }
+    .project h3 a:hover { color: var(--accent); }
 
     .period {
       margin: 0 0 0.65rem;
       font-size: 0.8rem;
-      color: var(--accent2);
+      color: var(--accent);
       font-variant-numeric: tabular-nums;
     }
 
@@ -185,19 +159,19 @@
       font-weight: 700;
       letter-spacing: 0.06em;
       text-transform: uppercase;
-      color: var(--lbl);
+      color: var(--text-dim);
     }
     .blk p, .project > p {
       margin: 0;
       font-size: 0.88rem;
       line-height: 1.55;
-      color: var(--muted);
+      color: var(--text-dim);
     }
 
     .bullets {
       margin: 0.35rem 0 0;
       padding-left: 1.15rem;
-      color: var(--muted);
+      color: var(--text-dim);
       font-size: 0.88rem;
       line-height: 1.55;
     }
@@ -206,16 +180,30 @@
     .strength-list {
       margin: 0;
       padding-left: 1.1rem;
-      color: var(--muted);
+      color: var(--text-dim);
       font-size: 0.9rem;
       line-height: 1.6;
     }
     .strength-list li { margin: 0.35rem 0; }
 
+    .projects {
+      margin: 0;
+      padding-left: 1.1rem;
+      color: var(--text-dim);
+      font-size: 0.9rem;
+      line-height: 1.6;
+    }
+    .projects li { margin: 0.35rem 0; }
+    .projects a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+    .projects a:hover { text-decoration: underline; }
+
     footer {
       margin-top: 0.5rem;
       font-size: 0.82rem;
-      color: var(--muted);
+      color: var(--text-dim);
     }
     .social-links {
       display: flex;
@@ -227,11 +215,11 @@
       display: inline-flex;
       align-items: center;
       gap: 0.4rem;
-      color: var(--accent2);
+      color: var(--accent);
       text-decoration: none;
     }
     .social-links a:hover {
-      color: var(--accent);
+      color: var(--text);
     }
     .social-links svg {
       flex-shrink: 0;
@@ -250,196 +238,30 @@
       font-size: 0.82rem;
       padding: 0.25rem 0.55rem;
       border-radius: 0.45rem;
-      background: var(--search-bg);
-      border: 1px solid var(--search-border);
-      color: var(--accent2);
+      background: var(--code-bg);
+      border: 1px solid var(--border);
+      color: var(--accent);
       text-decoration: none;
     }
     .search-row a:hover {
-      background: var(--search-hover);
+      background: var(--border);
     }
     .hint {
       margin: 0 0 0.35rem;
       font-size: 0.82rem;
-      color: var(--muted);
+      color: var(--text-dim);
     }
 
     .lead-strong {
-      color: var(--emph);
-      font-weight: 600;
-    }
-
-    .header-top {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: flex-start;
-      justify-content: space-between;
-      gap: 0.75rem 1rem;
-      margin-bottom: 0.35rem;
-    }
-    .header-top .eyebrow {
-      margin: 0;
-    }
-    .pickers {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.75rem 1.25rem;
-      align-items: flex-end;
-      justify-content: flex-start;
-    }
-    .theme-picker {
-      flex-shrink: 0;
-    }
-
-    /* 우상단 · iOS-style liquid glass appearance */
-    .appearance-glass-wrap {
-      position: fixed;
-      top: max(0.65rem, env(safe-area-inset-top));
-      right: max(0.65rem, env(safe-area-inset-right));
-      z-index: 100;
-      display: flex;
-      flex-direction: column;
-      align-items: flex-end;
-      gap: 0.35rem;
-      pointer-events: none;
-    }
-    .appearance-glass-wrap * {
-      pointer-events: auto;
-    }
-    .appearance-glass__caption {
-      font-size: 0.62rem;
-      font-weight: 700;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: var(--muted);
-    }
-    .appearance-glass {
-      display: flex;
-      padding: 4px;
-      gap: 2px;
-      border-radius: var(--radius-company);
-      background: var(--company-bg);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      border: 1px solid var(--border);
-      box-shadow:
-        0 0 0 1px var(--panel-inset) inset,
-        var(--panel-drop);
-    }
-    .appearance-glass__seg {
-      flex: 0 1 auto;
-      min-width: 3.1rem;
-      padding: 0.48rem 0.72rem;
-      border: none;
-      border-radius: calc(var(--radius-company) - 4px);
-      font: inherit;
-      font-size: 0.72rem;
-      font-weight: 600;
-      letter-spacing: 0.04em;
-      color: var(--muted);
-      background: transparent;
-      cursor: pointer;
-      transition:
-        color 0.2s ease,
-        background 0.22s ease,
-        transform 0.12s ease;
-    }
-    .appearance-glass__seg:hover {
-      color: var(--accent2);
-    }
-    .appearance-glass__seg:active {
-      transform: scale(0.97);
-    }
-    .appearance-glass__seg:focus-visible {
-      outline: 2px solid var(--accent2);
-      outline-offset: 3px;
-    }
-    .appearance-glass__seg[aria-checked="true"] {
-      color: var(--accent2);
-      background: var(--chip-bg);
-      border: 1px solid var(--chip-border);
-    }
-    @media (prefers-reduced-motion: reduce) {
-      .appearance-glass__seg {
-        transition: none;
-      }
-    }
-    .theme-picker label {
-      display: block;
-      font-size: 0.7rem;
-      font-weight: 600;
-      letter-spacing: 0.05em;
-      text-transform: uppercase;
-      color: var(--muted);
-      margin-bottom: 0.3rem;
-    }
-    .theme-picker select {
-      font: inherit;
-      font-size: 0.85rem;
-      min-width: 13.5rem;
-      padding: 0.45rem 0.65rem;
-      border-radius: 0.55rem;
-      border: 1px solid var(--border);
-      background: var(--company-bg);
       color: var(--text);
-      cursor: pointer;
-    }
-    .theme-picker select:hover,
-    .theme-picker select:focus {
-      border-color: var(--accent);
-      outline: none;
-    }
-    .theme-picker select:focus {
-      box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.08);
-    }
-    .theme-hint {
-      margin: 0 0 0.75rem;
+      font-weight: 600;
     }
   </style>
 </head>
 <body>
-  
-
   <div class="page">
     <header class="panel">
-      <div class="header-top">
-        <p class="eyebrow">Android · Kotlin</p>
-        <div class="appearance-glass-wrap">
-          <span class="appearance-glass__caption" id="appearance-glass-label"></span>
-          <div
-            class="appearance-glass"
-            role="radiogroup"
-            aria-labelledby="appearance-glass-label"
-          >
-            <button type="button" class="appearance-glass__seg" role="radio" data-appearance-set="light" aria-checked="false">
-              Light
-            </button>
-            <button type="button" class="appearance-glass__seg" role="radio" data-appearance-set="dark" aria-checked="false">
-              Dark
-            </button>
-            <button type="button" class="appearance-glass__seg" role="radio" data-appearance-set="system" aria-checked="true">
-              System
-            </button>
-          </div>
-        </div>
-        <div class="pickers">
-          <div class="theme-picker">
-            <label for="theme-select">화면 테마</label>
-            <select id="theme-select" aria-describedby="theme-hint">
-              <option value="mist">미스트 · Very Peri 17-3938</option>
-              <option value="sage">세이지 · Kale / Greenery</option>
-              <option value="dawn">피치 퍼즈 13-1023</option>
-              <option value="ocean">드래곤플라이 19-4540</option>
-              <option value="rose">리빙 코랄 / 로즈 쿼츠</option>
-              <option value="orange">바이브런트 오렌지 16-1364</option>
-              <option value="pink">핑크 라벤더 14-2311</option>
-              <option value="pastel">선라이트 / 아이스 아쿠아 / 라벤듈라</option>
-              <option value="vivid">클래식 블루 19-4052</option>
-              <option value="android">Android · #3DDC84</option>
-            </select>
-          </div>
-        </div>
-      </div>
+      <p class="eyebrow">Android · Kotlin</p>
       <h1>Tae.Kim</h1>
       <p class="lead">
         커뮤니티·커머스·핀테크·헬스케어 등 <strong class="lead-strong">여러 도메인</strong>의 앱·라이브러리를 다뤄 왔습니다.
@@ -449,19 +271,65 @@
 
     <section class="panel" aria-labelledby="skills-heading">
       <h2 id="skills-heading">대표 스택</h2>
+
+      <p class="lbl">Languages</p>
       <ul class="chips">
         <li>Kotlin</li>
+        <li>Java</li>
+        <li>TypeScript</li>
+        <li>AOSP</li>
+        <li>Feature Phone</li>
+      </ul>
+
+      <p class="lbl">UI &amp; Frameworks</p>
+      <ul class="chips">
         <li>Jetpack Compose</li>
-        <li>Coroutines / Flow</li>
-        <li>RxJava</li>
-        <li>MVI / MVVM / MVP</li>
+        <li>Custom View</li>
+        <li>DataBinding / ViewBinding</li>
+        <li>JavaFX</li>
+      </ul>
+
+      <p class="lbl">Architecture &amp; Pattern</p>
+      <ul class="chips">
         <li>Clean Architecture</li>
-        <li>Hilt</li>
-        <li>멀티모듈</li>
-        <li>Room / DataStore</li>
-        <li>Retrofit · Moshi / Gson</li>
-        <li>ExoPlayer</li>
+        <li>Multi-Module</li>
+        <li>MVI</li>
+        <li>MVVM</li>
+        <li>MVP (w/ Redux)</li>
+      </ul>
+
+      <p class="lbl">Asynchronous &amp; Network</p>
+      <ul class="chips">
+        <li>Coroutines &amp; Flow</li>
+        <li>gRPC</li>
+        <li>RxJava</li>
+        <li>Retrofit</li>
+        <li>Moshi</li>
+      </ul>
+
+      <p class="lbl">Persistence &amp; Data</p>
+      <ul class="chips">
+        <li>Room</li>
+        <li>DataStore</li>
+        <li>Preferences</li>
+        <li>SQLite</li>
+        <li>Realm</li>
+      </ul>
+
+      <p class="lbl">Location &amp; Systems</p>
+      <ul class="chips">
+        <li>Map SDKs</li>
+        <li>Bluetooth (BLE/SPP)</li>
+        <li>USB (Barcode/Printer)</li>
+        <li>Audio Waves</li>
+        <li>BSD Socket (TCP/UDP)</li>
+      </ul>
+
+      <p class="lbl">DevOps &amp; Infrastructure</p>
+      <ul class="chips">
+        <li>Maven Central Publishing</li>
         <li>GitHub Actions</li>
+        <li>Firebase Functions</li>
       </ul>
     </section>
 
@@ -469,36 +337,37 @@
       <h2 id="exp-heading">경력</h2>
 
       <details class="company" open>
-        <summary>현대자동차 <span class="company-range">2023.06.28 ~ 재직 중</span></summary>
+        <summary>현대자동차 <span class="company-range">2023.06 ~ 재직 중</span></summary>
         <div class="company-body">
           <div class="project">
-            <h3>셔클 Android</h3>
+            <h3>셔클(Shucle) 생태계</h3>
             <p class="period">기간: 2023.06 ~</p>
             <p class="lbl">개요</p>
-            <p>
-              수요응답형(DRT) 모빌리티 <strong>셔클</strong> 플랫폼 기반 <strong>Android 앱</strong> 개발·운영.
-              같은 계열로 <strong>똑타</strong>(경기 통합·똑버스), <strong>이응</strong>(세종 통합 모빌리티),
-              <strong>광주투어버스</strong>(광주 관광 DRT) 등 지자체·서비스별 클라이언트를 다루고 있습니다.
-            </p>
-            <p class="lbl">해외 실증</p>
-            <p>
-              <strong>헝가리</strong> 수요응답교통 시범 등 셔클 플랫폼 해외 적용 과정에 참여했습니다.
-            </p>
-            <p class="lbl">뉴스 검색 (Google)</p>
-            <p class="hint">키워드별로 최신 기사를 바로 열어볼 수 있습니다.</p>
-            <div class="search-row">
-              <a href="https://www.google.com/search?q=%ED%98%84%EB%8C%80%EC%9E%90%EB%8F%99%EC%B0%A8+%EC%85%94%ED%81%B4+%EB%89%B4%EC%8A%A4" rel="noopener noreferrer">셔클</a>
-              <a href="https://www.google.com/search?q=%ED%98%84%EB%8C%80%EC%9E%90%EB%8F%99%EC%B0%A8+%EB%98%91%ED%83%80+%EB%98%91%EB%B2%84%EC%8A%A4+%EB%89%B4%EC%8A%A4" rel="noopener noreferrer">똑타</a>
-              <a href="https://www.google.com/search?q=%ED%98%84%EB%8C%80%EC%9E%90%EB%8F%99%EC%B0%A8+%EC%9D%B4%EC%9D%91+%EC%84%B8%EC%A2%85+%EB%89%B4%EC%8A%A4" rel="noopener noreferrer">이응</a>
-              <a href="https://www.google.com/search?q=%EA%B4%91%EC%A3%BC%ED%88%AC%EC%96%B4%EB%B2%84%EC%8A%A4+DRT+%EB%89%B4%EC%8A%A4" rel="noopener noreferrer">광주투어버스</a>
-              <a href="https://www.google.com/search?q=%ED%98%84%EB%8C%80%EC%9E%90%EB%8F%99%EC%B0%A8+%ED%97%9D%EA%B0%80%EB%A6%AC+%EC%85%94%ED%81%B4+%EC%8B%A4%EC%A6%9D+%EB%89%B4%EC%8A%A4" rel="noopener noreferrer">헝가리 실증</a>
-            </div>
+            <p>수요응답형 통합 모빌리티 서비스 <strong>셔클(Shucle)</strong> 생태계 개발</p>
+          </div>
+
+          <div class="project">
+            <h3>Shucle Rider (승객 앱)</h3>
+            <p class="lbl">개요</p>
+            <p>Jetpack Compose 및 gRPC 기반 실시간 위치·지도 특화 승객용 서비스 개발</p>
+          </div>
+
+          <div class="project">
+            <h3>Shucle Driver (기사 앱)</h3>
+            <p class="lbl">개요</p>
+            <p>운행 및 매칭 관리를 위한 기사용 서비스 개발</p>
+          </div>
+
+          <div class="project">
+            <h3>Shucle Vehicle (차량 정보 앱)</h3>
+            <p class="lbl">개요</p>
+            <p>차량 디바이스 및 운행 상태 관리 앱 개발</p>
           </div>
         </div>
       </details>
 
       <details class="company">
-        <summary>Greenlabs Financial <span class="company-range">2022.11.21 ~ 2023.04.07</span></summary>
+        <summary>Greenlabs Financial <span class="company-range">2022.11 ~ 2023.04</span></summary>
         <div class="company-body">
           <div class="project">
             <h3>Seed</h3>
@@ -522,7 +391,7 @@
       </details>
 
       <details class="company">
-        <summary>Weverse Company <span class="company-range">2020.04.27 ~ 2022.08.31</span></summary>
+        <summary>Weverse Company <span class="company-range">2020.04 ~ 2022.08</span></summary>
         <div class="company-body">
           <div class="project">
             <h3><a href="https://play.google.com/store/apps/details?id=co.benx.weverse" rel="noopener noreferrer">Weverse</a></h3>
@@ -594,7 +463,7 @@
       </details>
 
       <details class="company">
-        <summary>Neofect <span class="company-range">2018.09.01 ~ 2020.04.20</span></summary>
+        <summary>Neofect <span class="company-range">2018.09 ~ 2020.04</span></summary>
         <div class="company-body">
           <div class="project">
             <h3>Rapael Clinic · <a href="https://www.neofect.com/ko/comcog/" rel="noopener noreferrer">Rapael ComCog</a></h3>
@@ -619,7 +488,7 @@
       </details>
 
       <details class="company">
-        <summary>Balance Hero <span class="company-range">2017.08.16 ~ 2018.08.25</span></summary>
+        <summary>Balance Hero <span class="company-range">2017.08 ~ 2018.08</span></summary>
         <div class="company-body">
           <div class="project">
             <h3><a href="https://play.google.com/store/apps/details?id=com.balancehero.truebalance" rel="noopener noreferrer">True Balance</a></h3>
@@ -638,7 +507,7 @@
       </details>
 
       <details class="company">
-        <summary>ArtNCore <span class="company-range">2016.09.19 ~ 2016.12.30</span></summary>
+        <summary>ArtNCore <span class="company-range">2016.09 ~ 2016.12</span></summary>
         <div class="company-body">
           <div class="project">
             <h3>안드로이드 네비게이션 단말</h3>
@@ -652,7 +521,7 @@
       </details>
 
       <details class="company">
-        <summary>Soundlly <span class="company-range">2015.03.02 ~ 2016.06.25</span></summary>
+        <summary>Soundlly <span class="company-range">2015.03 ~ 2016.06</span></summary>
         <div class="company-body">
           <div class="project">
             <h3>Soundlly SDK</h3>
@@ -666,7 +535,7 @@
       </details>
 
       <details class="company">
-        <summary>GoPeace <span class="company-range">2009.04.13 ~ 2015.01.15</span></summary>
+        <summary>GoPeace <span class="company-range">2009.04 ~ 2015.01</span></summary>
         <div class="company-body">
           <div class="project">
             <h3>멀티플랫폼 네트워크 라이브러리 (Chord, SCS)</h3>
@@ -693,12 +562,30 @@
     </section>
 
     <section class="panel" aria-labelledby="str-heading">
-      <h2 id="str-heading">강점</h2>
+      <h2 id="str-heading">핵심 역량</h2>
       <ul class="strength-list">
-        <li>다양한 도메인 경험을 바탕으로 서비스 전반과의 커뮤니케이션</li>
-        <li>목적조직 리딩을 통한 직군 간 커뮤니케이션</li>
-        <li>다양한 업무 프로세스 경험</li>
-        <li>유연한 사고로 문제에 여러 관점에서 접근</li>
+        <li>
+          <strong>다양한 도메인 기반의 커뮤니케이션</strong> — 피처폰 및 AOSP부터 헬스케어, 인도/국내 핀테크,
+          글로벌 소셜/커머스, 현대자동차 모빌리티 서비스까지 폭넓은 도메인 경험을 바탕으로 서비스 전반을
+          이해하고 다양한 직군과 원활하게 소통합니다.
+        </li>
+        <li>
+          <strong>목적조직 리딩 및 유연한 소통</strong> — 목적조직 팀장 경험을 통해 기획, 디자인, 개발,
+          하드웨어 연동 등 다양한 직군 간의 유연한 비즈니스 소통 및 문제 해결을 주도합니다.
+        </li>
+        <li>
+          <strong>유연한 사고를 통한 문제 접근</strong> — 최신 기술(Jetpack Compose, Clean Architecture, MVI, gRPC)부터
+          하드웨어 통신 프로토콜(BLE/USB/음파/Socket) 및 로우레벨 시스템까지 다각도의 관점에서 유연하게 접근합니다.
+        </li>
+      </ul>
+    </section>
+
+    <section class="panel" aria-labelledby="projects">
+      <h2 id="projects">프로젝트</h2>
+      <ul class="projects">
+        <li>
+          <strong><a href="https://touktw.github.io/AndroidDeveloper">DevToolkit</a></strong>
+        </li>
       </ul>
     </section>
 
@@ -713,91 +600,5 @@
       </div>
     </footer>
   </div>
-
-  <script>
-    (function () {
-      var themeKey = "about-theme";
-      var appearanceKey = "about-appearance";
-      var allowed = ["mist", "sage", "dawn", "ocean", "rose", "orange", "pink", "pastel", "vivid", "android"];
-      var root = document.documentElement;
-      var themeSelect = document.getElementById("theme-select");
-      var appearanceGlass = document.querySelector(".appearance-glass");
-
-      function desiredAppearance() {
-        try {
-          var m = localStorage.getItem(appearanceKey);
-          if (m === "dark" || m === "light") return m;
-        } catch (e) {}
-        return "system";
-      }
-
-      function resolveAppearance() {
-        var d = desiredAppearance();
-        if (d === "light") return "light";
-        if (d === "dark") return "dark";
-        return window.matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark";
-      }
-
-      function applyAppearance() {
-        root.setAttribute("data-appearance", resolveAppearance());
-        var mode = desiredAppearance();
-        var segs = document.querySelectorAll(".appearance-glass__seg");
-        for (var i = 0; i < segs.length; i++) {
-          var b = segs[i];
-          b.setAttribute("aria-checked", b.getAttribute("data-appearance-set") === mode ? "true" : "false");
-        }
-      }
-
-      function applyTheme(t) {
-        if (allowed.indexOf(t) === -1) t = "mist";
-        root.setAttribute("data-theme", t);
-        if (themeSelect) themeSelect.value = t;
-        try {
-          localStorage.setItem(themeKey, t);
-        } catch (e) {}
-      }
-
-      var savedTheme = null;
-      try {
-        savedTheme = localStorage.getItem(themeKey);
-      } catch (e) {}
-      applyTheme(
-        savedTheme && allowed.indexOf(savedTheme) !== -1 ? savedTheme : root.getAttribute("data-theme") || "orange"
-      );
-      applyAppearance();
-
-      try {
-        window.matchMedia("(prefers-color-scheme: light)").addEventListener("change", function () {
-          if (desiredAppearance() === "system") applyAppearance();
-        });
-      } catch (e) {}
-
-      if (themeSelect) {
-        themeSelect.addEventListener("change", function () {
-          applyTheme(themeSelect.value);
-        });
-      }
-      if (appearanceGlass) {
-        appearanceGlass.addEventListener("click", function (ev) {
-          var btn = ev.target.closest("[data-appearance-set]");
-          if (!btn) return;
-          var v = btn.getAttribute("data-appearance-set");
-          try {
-            if (v === "system") localStorage.removeItem(appearanceKey);
-            else localStorage.setItem(appearanceKey, v);
-          } catch (e) {}
-          applyAppearance();
-        });
-      }
-
-      var isLocal = location.hostname === "localhost" || location.hostname === "127.0.0.1" || location.hostname === "";
-      if (!isLocal) {
-        var picker = document.querySelector(".theme-picker");
-        var hint = document.getElementById("theme-hint");
-        if (picker) picker.style.display = "none";
-        if (hint) hint.style.display = "none";
-      }
-    })();
-  </script>
 </body>
 </html>
