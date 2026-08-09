@@ -23,10 +23,20 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Checkout AndroidDeveloper site
+        uses: actions/checkout@v4
+        with:
+          repository: touktw/AndroidDeveloper
+          ref: gh-pages
+          path: _androiddeveloper
+
       - name: Stage static files
         run: |
           mkdir _site
           rsync -a --exclude='.git' --exclude='.github' ./ _site/
+          rm -rf _site/_androiddeveloper
+          mkdir -p _site/projects/androiddeveloper
+          rsync -a --exclude='.git' _androiddeveloper/ _site/projects/androiddeveloper/
 
       - uses: actions/configure-pages@v5
 

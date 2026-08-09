@@ -162,6 +162,27 @@ const SITE_DATA = {
     },
   ],
 
+  projects: [
+    {
+      name: "Android Developer",
+      tagline: "안드로이드 개발자를 위한 온디바이스 개발자 툴박스 앱",
+      description: "기기·앱 정보 조회, 개발자 옵션 관리, 실시간 로그캣 뷰어, 딥링크/인텐트 테스터, Gradle 의존성 검색 등을 폰 안에서 바로 쓸 수 있는 개발자 도구 앱입니다.",
+      features: [
+        "기기/앱 정보 조회",
+        "개발자 옵션 및 디버깅 설정 관리",
+        "실시간 로그캣 뷰어",
+        "딥링크 / 인텐트 테스터",
+        "Gradle 의존성 검색",
+        "Quick Launch",
+        "QR 코드 생성 및 스캔",
+        "라이트 / 다크 / 시스템 테마 지원"
+      ],
+      downloadUrl: "projects/androiddeveloper/",
+      repoUrl: "https://github.com/touktw/AndroidDeveloper",
+      license: "Apache License 2.0"
+    }
+  ],
+
   key_features: [
     {
       feature: "다양한 도메인 기반의 커뮤니케이션",
