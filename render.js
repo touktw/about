@@ -61,6 +61,11 @@ function renderAppProject(p) {
   var html = '<div class="app-card">';
   html += '<h3>' + p.name + '</h3>';
   if (p.tagline) html += '<p class="app-tagline">' + p.tagline + '</p>';
+  if (p.platforms && p.platforms.length) {
+    html += '<ul class="chips platforms">' +
+      p.platforms.map(function (pf) { return '<li>' + pf + '</li>'; }).join('') +
+      '</ul>';
+  }
   if (p.description) html += '<p>' + p.description + '</p>';
   if (p.features && p.features.length) {
     html += '<ul class="chips">' +
