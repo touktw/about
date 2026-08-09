@@ -27,16 +27,26 @@ jobs:
         uses: actions/checkout@v4
         with:
           repository: touktw/AndroidDeveloper
-          ref: gh-pages
+          ref: main
           path: _androiddeveloper
+      
+      - name: Checkout AdbTool site
+        uses: actions/checkout@v4
+        with:
+          repository: touktw/AdbTool
+          ref: main
+          path: _adbtool
 
       - name: Stage static files
         run: |
           mkdir _site
           rsync -a --exclude='.git' --exclude='.github' ./ _site/
           rm -rf _site/_androiddeveloper
+          rm -rf _site/_adbtool
           mkdir -p _site/projects/androiddeveloper
-          rsync -a --exclude='.git' _androiddeveloper/ _site/projects/androiddeveloper/
+          mkdir -p _site/projects/adbtool
+          rsync -a --exclude='.git' _androiddeveloper/docs/site/ _site/projects/androiddeveloper/
+          rsync -a --exclude='.git' _adbtool/docs/site/ _site/projects/adbtool/
 
       - uses: actions/configure-pages@v5
 

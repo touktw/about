@@ -183,6 +183,27 @@ const SITE_DATA = {
       downloadUrl: "projects/androiddeveloper/",
       repoUrl: "https://github.com/touktw/AndroidDeveloper",
       license: "Apache License 2.0"
+    },
+    {
+      name: "ADB tools for desktop",
+      tagline: "데스크탑용 ADB 툴",
+      description: "데스크탑에서 ADB 명령어를 쉽게 실행 가능하게 합니다.",
+      platforms: [
+        "macOS", "Windows"
+      ],
+      features: [
+        "연결된 디바이스 확인",
+        "APK 설치",
+        "Deeplink 발송",
+        "권한 부여/회수",
+        "dumpsys 뷰어",
+        "Logcat 뷰어",
+        "파일 탐색기",
+        "화면 캡쳐/녹화"
+      ],
+      downloadUrl: "projects/adbtool",
+      repoUrl: "https://github.com/touktw/AdbTool",
+      license: "Apache License 2.0"
     }
   ],
 
