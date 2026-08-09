@@ -246,6 +246,19 @@ footer {
   font-weight: 600;
 }
 
+.nav-panel {
+  padding: 0.6rem clamp(1.25rem, 3vw, 1.75rem);
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-dim);
+}
+.nav-panel a {
+  color: var(--accent);
+  text-decoration: none;
+}
+.nav-panel a:hover { text-decoration: underline; }
+.nav-panel .active { color: var(--text); }
+
 .btn {
   display: inline-flex;
   align-items: center;
