@@ -49,3 +49,46 @@ test('selectPlatformReleases keeps only releases with a matching asset, in given
   assert.equal(matches[0].release.tag_name, 'v2');
   assert.equal(matches[0].asset.name, 'app-2-mac.dmg');
 });
+
+const { renderPlatformCard } = require('./build-download-pages');
+
+const PROJECT = { repoUrl: 'https://github.com/touktw/AdbTool' };
+
+test('renderPlatformCard shows a static TBD card regardless of state', () => {
+  const platform = { label: 'Windows', tbd: true };
+  const html = renderPlatformCard(PROJECT, platform, {});
+  assert.match(html, /class="tbd-badge">TBD/);
+  assert.match(html, /Windows 버전은 아직 준비 중입니다/);
+});
+
+test('renderPlatformCard shows an error fallback when apiError is set', () => {
+  const platform = { label: 'macOS' };
+  const html = renderPlatformCard(PROJECT, platform, { apiError: true });
+  assert.match(html, /릴리스 목록을 불러오지 못했습니다/);
+  assert.match(html, /https:\/\/github\.com\/touktw\/AdbTool\/releases/);
+});
+
+test('renderPlatformCard shows empty state when there are no matches', () => {
+  const platform = { label: 'macOS' };
+  const html = renderPlatformCard(PROJECT, platform, { matches: [] });
+  assert.match(html, /아직 macOS 릴리스가 없습니다/);
+});
+
+test('renderPlatformCard renders latest release and collapses older ones', () => {
+  const platform = { label: 'macOS' };
+  const matches = [
+    {
+      release: { tag_name: 'v2', name: 'v2', published_at: '2026-02-01T00:00:00Z', body: '변경사항' },
+      asset: { name: 'app-2.dmg', browser_download_url: 'https://example.com/2.dmg' }
+    },
+    {
+      release: { tag_name: 'v1', name: 'v1', published_at: '2026-01-01T00:00:00Z', body: '' },
+      asset: { name: 'app-1.dmg', browser_download_url: 'https://example.com/1.dmg' }
+    }
+  ];
+  const html = renderPlatformCard(PROJECT, platform, { matches });
+  assert.match(html, /class="badge">최신 버전/);
+  assert.match(html, /app-2\.dmg 다운로드/);
+  assert.match(html, /class="older"/);
+  assert.match(html, /app-1\.dmg 다운로드/);
+});
