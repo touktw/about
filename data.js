@@ -167,8 +167,9 @@ const SITE_DATA = {
       name: "Android Developer",
       tagline: "안드로이드 개발자를 위한 온디바이스 개발자 툴박스 앱",
       description: "기기·앱 정보 조회, 개발자 옵션 관리, 실시간 로그캣 뷰어, 딥링크/인텐트 테스터, Gradle 의존성 검색 등을 폰 안에서 바로 쓸 수 있는 개발자 도구 앱입니다.",
+      repoName: "AndroidDeveloper",
       platforms: [
-        "Android"
+        { label: "Android", assetPattern: "\\.apk$" }
       ],
       features: [
         "기기/앱 정보 조회",
@@ -180,16 +181,16 @@ const SITE_DATA = {
         "QR 코드 생성 및 스캔",
         "라이트 / 다크 / 시스템 테마 지원"
       ],
-      downloadUrl: "projects/androiddeveloper/",
-      repoUrl: "https://github.com/touktw/AndroidDeveloper",
       license: "Apache License 2.0"
     },
     {
       name: "ADB tools for desktop",
       tagline: "데스크탑용 ADB 툴",
       description: "데스크탑에서 ADB 명령어를 쉽게 실행 가능하게 합니다.",
+      repoName: "AdbTool",
       platforms: [
-        "macOS", "Windows"
+        { label: "macOS", assetPattern: "\\.(dmg|pkg)$|mac" },
+        { label: "Windows", assetPattern: "\\.(exe|msi|zip)$|win", tbd: true }
       ],
       features: [
         "연결된 디바이스 확인",
@@ -201,8 +202,6 @@ const SITE_DATA = {
         "파일 탐색기",
         "화면 캡쳐/녹화"
       ],
-      downloadUrl: "projects/adbtool",
-      repoUrl: "https://github.com/touktw/AdbTool",
       license: "Apache License 2.0"
     }
   ],
@@ -222,3 +221,16 @@ const SITE_DATA = {
     }
   ]
 };
+
+SITE_DATA.projects = SITE_DATA.projects.map(function (p) {
+  var slug = p.repoName.toLowerCase();
+  return Object.assign({}, p, {
+    slug: slug,
+    repoUrl: "https://github.com/touktw/" + p.repoName,
+    downloadUrl: "projects/" + slug + "/"
+  });
+});
+
+if (typeof module !== "undefined") {
+  module.exports = SITE_DATA;
+}
