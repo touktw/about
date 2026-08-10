@@ -113,3 +113,17 @@ test('buildProject falls back to an error card per platform when mock file is mi
   const html = await buildProject(project, { mockDir: '/nonexistent-dir-for-plan-task7' });
   assert.match(html, /릴리스 목록을 불러오지 못했습니다/);
 });
+
+const { parseArgs } = require('./build-download-pages');
+
+test('parseArgs reads --out and --mock-dir', () => {
+  const args = parseArgs(['--out=_site/projects', '--mock-dir=fixtures/releases']);
+  assert.equal(args.out, '_site/projects');
+  assert.equal(args.mockDir, 'fixtures/releases');
+});
+
+test('parseArgs defaults out to _site/projects and mockDir to null', () => {
+  const args = parseArgs([]);
+  assert.equal(args.out, '_site/projects');
+  assert.equal(args.mockDir, null);
+});

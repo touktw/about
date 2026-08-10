@@ -138,6 +138,48 @@ function loadMockReleases(mockDir, repoName) {
   return JSON.parse(fs.readFileSync(file, "utf-8"));
 }
 
+async function fetchReleases(repoName, token) {
+  const res = await fetch(`https://api.github.com/repos/touktw/${repoName}/releases?per_page=50`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+      Accept: "application/vnd.github+json",
+      "User-Agent": "about-build-download-pages"
+    }
+  });
+  if (!res.ok) throw new Error(`GitHub API ${res.status}`);
+  return res.json();
+}
+
+function parseArgs(argv) {
+  const args = { out: "_site/projects", mockDir: null };
+  for (const arg of argv) {
+    if (arg.startsWith("--out=")) args.out = arg.slice("--out=".length);
+    else if (arg.startsWith("--mock-dir=")) args.mockDir = arg.slice("--mock-dir=".length);
+  }
+  return args;
+}
+
+async function main(argv) {
+  const args = parseArgs(argv);
+  const SITE_DATA = require(path.join(__dirname, "..", "data.js"));
+  const token = process.env.GITHUB_TOKEN;
+
+  for (const project of SITE_DATA.projects) {
+    const html = await buildProject(project, { token, mockDir: args.mockDir });
+    const dir = path.join(args.out, project.slug);
+    fs.mkdirSync(dir, { recursive: true });
+    fs.writeFileSync(path.join(dir, "index.html"), html);
+    console.log(`built ${project.slug}/index.html`);
+  }
+}
+
+if (require.main === module) {
+  main(process.argv.slice(2)).catch((err) => {
+    console.error(err);
+    process.exit(1);
+  });
+}
+
 async function buildProject(project, opts) {
   let releases;
   let apiError = false;
@@ -167,5 +209,5 @@ async function buildProject(project, opts) {
 module.exports = {
   escapeHtml, renderNotes, matchAsset, selectPlatformReleases,
   formatDate, renderPlatformCard, renderProjectPage, buildProject,
-  loadMockReleases
+  loadMockReleases, fetchReleases, parseArgs
 };

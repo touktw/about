@@ -1,0 +1,22 @@
+[
+  {
+    "tag_name": "v2.3.0",
+    "name": "v2.3.0",
+    "draft": false,
+    "published_at": "2026-03-05T09:00:00Z",
+    "body": "## v2.3.0\n- Gradle 의존성 검색 추가",
+    "assets": [
+      { "name": "AndroidDeveloper-2.3.0.apk", "browser_download_url": "https://github.com/touktw/AndroidDeveloper/releases/download/v2.3.0/AndroidDeveloper-2.3.0.apk" }
+    ]
+  },
+  {
+    "tag_name": "v2.2.0",
+    "name": "v2.2.0",
+    "draft": false,
+    "published_at": "2026-02-10T09:00:00Z",
+    "body": "- 딥링크 테스터 추가",
+    "assets": [
+      { "name": "AndroidDeveloper-2.2.0.apk", "browser_download_url": "https://github.com/touktw/AndroidDeveloper/releases/download/v2.2.0/AndroidDeveloper-2.2.0.apk" }
+    ]
+  }
+]
