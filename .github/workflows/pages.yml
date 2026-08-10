@@ -3,6 +3,10 @@ name: Deploy GitHub Pages
 on:
   push:
     branches: [main]
+  schedule:
+    # AdbTool/AndroidDeveloper 쪽에 새 릴리스가 나와도 이 저장소 자체엔 push가
+    # 없어서 자동으로 안 새로고침되므로, 6시간마다 주기적으로 재배포해서 따라잡는다.
+    - cron: "17 */6 * * *"
   workflow_dispatch:
 
 permissions:
@@ -23,37 +27,29 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Checkout AndroidDeveloper site
-        uses: actions/checkout@v4
-        with:
-          repository: touktw/AndroidDeveloper
-          ref: main
-          path: _androiddeveloper
-      
-      - name: Checkout AdbTool site
-        uses: actions/checkout@v4
-        with:
-          repository: touktw/AdbTool
-          ref: main
-          path: _adbtool
-
       - name: Stage static files
         run: |
           mkdir _site
           rsync -a --exclude='.git' --exclude='.github' ./ _site/
-          rm -rf _site/_androiddeveloper
-          rm -rf _site/_adbtool
-          mkdir -p _site/projects/androiddeveloper
-          mkdir -p _site/projects/adbtool
-          rsync -a --exclude='.git' _androiddeveloper/docs/site/ _site/projects/androiddeveloper/
-          rsync -a --exclude='.git' _adbtool/docs/site/ _site/projects/adbtool/
 
-          if [ -f "_site/projects/androiddeveloper/download.html" ]; then
-            mv -f _site/projects/androiddeveloper/download.html _site/projects/androiddeveloper/index.html
-          fi
-          if [ -f "_site/projects/adbtool/download.html" ]; then
-            mv -f _site/projects/adbtool/download.html _site/projects/adbtool/index.html
-          fi
+      - name: Fetch deployed project pages
+        # AdbTool/AndroidDeveloper의 git 소스(docs/site/download.html)를 그대로
+        # 체크아웃해서 복사하면, 두 저장소가 자기 GitHub Pages 배포 시점에만
+        # 구워넣는 EMBEDDED_RELEASES가 git에는 항상 빈 배열로 커밋돼 있어서 그대로
+        # 복사되어 버린다 — 결국 이 사이트에서는 예전처럼 방문자가 브라우저에서
+        # GitHub API를 직접 호출하게 되어 rate limit 문제가 그대로 재발한다.
+        # 대신 이미 배포되어 있는(EMBEDDED_RELEASES가 채워진) Pages 결과물을
+        # 직접 받아온다.
+        run: |
+          set -e
+          for pair in "adbtool AdbTool" "androiddeveloper AndroidDeveloper"; do
+            set -- $pair
+            slug="$1"
+            repo="$2"
+            mkdir -p "_site/projects/$slug/assets"
+            curl -fsSL "https://touktw.github.io/$repo/download.html" -o "_site/projects/$slug/index.html"
+            curl -fsSL "https://touktw.github.io/$repo/assets/style.css" -o "_site/projects/$slug/assets/style.css"
+          done
 
       - uses: actions/configure-pages@v5
 
