@@ -1,0 +1,32 @@
+[
+  {
+    "tag_name": "v1.1.0",
+    "name": "v1.1.0",
+    "draft": false,
+    "published_at": "2026-03-01T09:00:00Z",
+    "body": "## v1.1.0\n- 파일 탐색기 이미지 미리보기 추가\n- 업데이트 체크 캐시 개선",
+    "assets": [
+      { "name": "AdbTool-1.1.0-mac.dmg", "browser_download_url": "https://github.com/touktw/AdbTool/releases/download/v1.1.0/AdbTool-1.1.0-mac.dmg" }
+    ]
+  },
+  {
+    "tag_name": "v1.0.1",
+    "name": "v1.0.1",
+    "draft": false,
+    "published_at": "2026-02-01T09:00:00Z",
+    "body": "- 버그 수정",
+    "assets": [
+      { "name": "AdbTool-1.0.1-mac.dmg", "browser_download_url": "https://github.com/touktw/AdbTool/releases/download/v1.0.1/AdbTool-1.0.1-mac.dmg" }
+    ]
+  },
+  {
+    "tag_name": "v0.9.0",
+    "name": "v0.9.0 Windows Preview",
+    "draft": false,
+    "published_at": "2026-01-01T09:00:00Z",
+    "body": "Windows 미리보기 (macOS 자산 없음 — mac 목록에서 제외되어야 함)",
+    "assets": [
+      { "name": "AdbTool-0.9.0-win.exe", "browser_download_url": "https://github.com/touktw/AdbTool/releases/download/v0.9.0/AdbTool-0.9.0-win.exe" }
+    ]
+  }
+]

@@ -1,11 +1,12 @@
 (function () {
   var NAV_ITEMS = [
-    { key: "home", label: "home", href: "index.html" },
-    { key: "me", label: "me", href: "me.html" },
-    { key: "projects", label: "toys", href: "projects.html" }
+    { key: "home", label: "home", href: "/index.html" },
+    { key: "me", label: "me", href: "/me.html" },
+    { key: "projects", label: "toys", href: "/projects.html" }
   ];
 
   function currentPage() {
+    if (location.pathname.indexOf("/projects/") !== -1) return "projects";
     var path = location.pathname.split("/").pop();
     if (path === "" || path === "index.html") return "home";
     if (path === "me.html") return "me";
