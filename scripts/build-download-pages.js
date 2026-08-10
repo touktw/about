@@ -1,6 +1,9 @@
 #!/usr/bin/env node
 'use strict';
 
+const fs = require("fs");
+const path = require("path");
+
 function escapeHtml(s) {
   return s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
 }
@@ -94,4 +97,75 @@ function renderPlatformCard(project, platform, state) {
   return `<div class="platform-card">${header}${latestHtml}${olderHtml}</div>`;
 }
 
-module.exports = { escapeHtml, renderNotes, matchAsset, selectPlatformReleases, formatDate, renderPlatformCard };
+function renderProjectPage(project, platformCardsHtml) {
+  return `<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="dark light">
+<link rel="stylesheet" href="/themes.css">
+<link rel="stylesheet" href="/style.css">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<title>다운로드 · ${escapeHtml(project.name)}</title>
+</head>
+<body>
+<div class="page">
+<nav class="panel nav-panel" id="nav-root"></nav>
+<header class="panel">
+<h1>${escapeHtml(project.name)}</h1>
+<p class="lead">${escapeHtml(project.tagline || "")}</p>
+<p><a href="${project.repoUrl}" rel="noopener noreferrer">${escapeHtml(project.repoUrl.replace("https://", ""))}</a></p>
+</header>
+<section class="panel platform-grid">
+${platformCardsHtml}
+</section>
+<footer class="panel">
+<p class="app-license">${escapeHtml(project.license || "")}</p>
+</footer>
+</div>
+<script src="/nav.js"></script>
+</body>
+</html>
+`;
+}
+
+// 이 함수는 Task 8에서 정의된다. Task 7 시점에는 아래 buildProject가 참조만 하고,
+// mockDir 파일이 없을 때 throw하는 경로로만 테스트된다.
+function loadMockReleases(mockDir, repoName) {
+  const file = path.join(mockDir, `${repoName}.json`);
+  if (!fs.existsSync(file)) throw new Error(`mock file not found: ${file}`);
+  return JSON.parse(fs.readFileSync(file, "utf-8"));
+}
+
+async function buildProject(project, opts) {
+  let releases;
+  let apiError = false;
+  try {
+    releases = opts.mockDir
+      ? loadMockReleases(opts.mockDir, project.repoName)
+      : await fetchReleases(project.repoName, opts.token);
+  } catch (err) {
+    console.warn(`[build-download-pages] ${project.repoName} 릴리스 조회 실패: ${err.message}`);
+    apiError = true;
+    releases = [];
+  }
+
+  const sorted = releases
+    .filter((r) => !r.draft)
+    .sort((a, b) => new Date(b.published_at) - new Date(a.published_at));
+
+  const cardsHtml = project.platforms.map((platform) => {
+    if (platform.tbd) return renderPlatformCard(project, platform, {});
+    if (apiError) return renderPlatformCard(project, platform, { apiError: true });
+    return renderPlatformCard(project, platform, { matches: selectPlatformReleases(sorted, platform) });
+  }).join("\n");
+
+  return renderProjectPage(project, cardsHtml);
+}
+
+module.exports = {
+  escapeHtml, renderNotes, matchAsset, selectPlatformReleases,
+  formatDate, renderPlatformCard, renderProjectPage, buildProject,
+  loadMockReleases
+};

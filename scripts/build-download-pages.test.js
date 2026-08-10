@@ -92,3 +92,24 @@ test('renderPlatformCard renders latest release and collapses older ones', () =>
   assert.match(html, /class="older"/);
   assert.match(html, /app-1\.dmg 다운로드/);
 });
+
+const { renderProjectPage, buildProject } = require('./build-download-pages');
+
+test('renderProjectPage embeds title, repo link, license, and platform cards', () => {
+  const project = { name: 'AdbTool', tagline: '데스크탑용 ADB 툴', repoUrl: 'https://github.com/touktw/AdbTool', license: 'Apache License 2.0' };
+  const html = renderProjectPage(project, '<div class="platform-card">CARD</div>');
+  assert.match(html, /<title>다운로드 · AdbTool<\/title>/);
+  assert.match(html, /href="https:\/\/github\.com\/touktw\/AdbTool"/);
+  assert.match(html, /<div class="platform-card">CARD<\/div>/);
+  assert.match(html, /Apache License 2\.0/);
+  assert.match(html, /href="\/style\.css"/);
+});
+
+test('buildProject falls back to an error card per platform when mock file is missing', async () => {
+  const project = {
+    name: 'AdbTool', repoName: 'AdbTool', repoUrl: 'https://github.com/touktw/AdbTool', license: 'x',
+    platforms: [{ label: 'macOS', assetPattern: '\\.dmg$' }]
+  };
+  const html = await buildProject(project, { mockDir: '/nonexistent-dir-for-plan-task7' });
+  assert.match(html, /릴리스 목록을 불러오지 못했습니다/);
+});
