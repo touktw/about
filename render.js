@@ -63,7 +63,7 @@ function renderAppProject(p) {
   if (p.tagline) html += '<p class="app-tagline">' + p.tagline + '</p>';
   if (p.platforms && p.platforms.length) {
     html += '<ul class="chips platforms">' +
-      p.platforms.map(function (pf) { return '<li>' + pf + '</li>'; }).join('') +
+      p.platforms.map(function (pf) { return '<li>' + pf.label + '</li>'; }).join('') +
       '</ul>';
   }
   if (p.description) html += '<p>' + p.description + '</p>';
