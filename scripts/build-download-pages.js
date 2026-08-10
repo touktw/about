@@ -40,4 +40,15 @@ function renderNotes(md) {
   return html;
 }
 
-module.exports = { escapeHtml, renderNotes };
+function matchAsset(release, re) {
+  return (release.assets || []).find((a) => re.test(a.name));
+}
+
+function selectPlatformReleases(releases, platform) {
+  const re = new RegExp(platform.assetPattern, "i");
+  return releases
+    .map((release) => ({ release, asset: matchAsset(release, re) }))
+    .filter((m) => m.asset);
+}
+
+module.exports = { escapeHtml, renderNotes, matchAsset, selectPlatformReleases };
