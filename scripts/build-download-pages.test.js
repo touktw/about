@@ -2,10 +2,17 @@
 
 const test = require('node:test');
 const assert = require('node:assert/strict');
+const fs = require('node:fs');
+const os = require('node:os');
+const path = require('node:path');
 const { escapeHtml, renderNotes } = require('./build-download-pages');
 
 test('escapeHtml escapes &, <, >', () => {
   assert.equal(escapeHtml('<b>a & b</b>'), '&lt;b&gt;a &amp; b&lt;/b&gt;');
+});
+
+test('escapeHtml escapes double and single quotes', () => {
+  assert.equal(escapeHtml(`a "b" 'c'`), 'a &quot;b&quot; &#39;c&#39;');
 });
 
 test('renderNotes converts heading, list, bold, code, link', () => {
@@ -23,6 +30,24 @@ test('renderNotes treats blank lines as paragraph/list separators', () => {
   const md = 'intro line\n\n- item one';
   const html = renderNotes(md);
   assert.equal(html, '<p>intro line</p><ul><li>item one</li></ul>');
+});
+
+test('renderNotes does not let a link URL break out of the href attribute', () => {
+  const md = '[x](https://a" onmouseover="alert(1))';
+  const html = renderNotes(md);
+  // The whole quoted href value (up to the first literal ") must be the fully-escaped
+  // URL -- if the raw " were left unescaped, this capture would stop early at "https://a"
+  // and "onmouseover=..." would become a second, live HTML attribute.
+  const hrefMatch = html.match(/href="([^"]*)"/);
+  assert.ok(hrefMatch, 'expected a single well-formed href attribute');
+  assert.equal(hrefMatch[1], 'https://a&quot; onmouseover=&quot;alert(1');
+});
+
+test('renderNotes refuses to linkify a non-http(s) scheme like javascript:', () => {
+  const md = '[click](javascript:alert(1))';
+  const html = renderNotes(md);
+  assert.doesNotMatch(html, /<a /);
+  assert.match(html, /\[click\]\(javascript:alert\(1\)\)/);
 });
 
 const { matchAsset, selectPlatformReleases } = require('./build-download-pages');
@@ -112,6 +137,88 @@ test('buildProject falls back to an error card per platform when mock file is mi
   };
   const html = await buildProject(project, { mockDir: '/nonexistent-dir-for-plan-task7' });
   assert.match(html, /릴리스 목록을 불러오지 못했습니다/);
+});
+
+const FIXTURES_DIR = path.join(__dirname, '..', 'fixtures', 'releases');
+
+test('buildProject orders the latest release before older ones in the rendered output', async () => {
+  const project = {
+    name: 'AdbTool', repoName: 'AdbTool', repoUrl: 'https://github.com/touktw/AdbTool', license: 'x',
+    platforms: [{ label: 'macOS', assetPattern: '\\.(dmg|pkg)$|mac' }]
+  };
+  const html = await buildProject(project, { mockDir: FIXTURES_DIR });
+  const idxLatest = html.indexOf('AdbTool-1.1.0-mac.dmg');
+  const idxOlder = html.indexOf('AdbTool-1.0.1-mac.dmg');
+  assert.notEqual(idxLatest, -1, 'latest release asset should be present');
+  assert.notEqual(idxOlder, -1, 'older release asset should be present');
+  assert.ok(idxLatest < idxOlder, 'v1.1.0 (newest) should render before v1.0.1 (older)');
+  assert.match(html, /class="badge">최신 버전/);
+});
+
+test('buildProject excludes a release with no matching-pattern asset from that platform card', async () => {
+  const project = {
+    name: 'AdbTool', repoName: 'AdbTool', repoUrl: 'https://github.com/touktw/AdbTool', license: 'x',
+    platforms: [{ label: 'macOS', assetPattern: '\\.(dmg|pkg)$|mac' }]
+  };
+  const html = await buildProject(project, { mockDir: FIXTURES_DIR });
+  // v0.9.0 only ships a Windows .exe asset in the fixture — it must not surface in the macOS card.
+  assert.doesNotMatch(html, /v0\.9\.0/);
+});
+
+test('buildProject excludes draft releases even when they have a matching asset', async () => {
+  const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'dl-pages-draft-'));
+  fs.writeFileSync(path.join(dir, 'DraftApp.json'), JSON.stringify([
+    {
+      tag_name: 'v2.0.0', name: 'v2.0.0', draft: true,
+      published_at: '2026-05-01T00:00:00Z', body: '',
+      assets: [{ name: 'DraftApp-2.0.0-mac.dmg', browser_download_url: 'https://example.com/2.dmg' }]
+    },
+    {
+      tag_name: 'v1.0.0', name: 'v1.0.0', draft: false,
+      published_at: '2026-01-01T00:00:00Z', body: '',
+      assets: [{ name: 'DraftApp-1.0.0-mac.dmg', browser_download_url: 'https://example.com/1.dmg' }]
+    }
+  ]));
+  const project = {
+    name: 'DraftApp', repoName: 'DraftApp', repoUrl: 'https://github.com/touktw/DraftApp', license: 'x',
+    platforms: [{ label: 'macOS', assetPattern: '\\.dmg$|mac' }]
+  };
+  const html = await buildProject(project, { mockDir: dir });
+  assert.doesNotMatch(html, /v2\.0\.0/);
+  assert.doesNotMatch(html, /DraftApp-2\.0\.0-mac\.dmg/);
+  assert.match(html, /class="badge">최신 버전/);
+  assert.match(html, /DraftApp-1\.0\.0-mac\.dmg/);
+});
+
+test('buildProject renders the "no releases yet" empty state when the mock file has no qualifying releases', async () => {
+  const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'dl-pages-empty-'));
+  fs.writeFileSync(path.join(dir, 'EmptyApp.json'), '[]');
+  const project = {
+    name: 'EmptyApp', repoName: 'EmptyApp', repoUrl: 'https://github.com/touktw/EmptyApp', license: 'x',
+    platforms: [{ label: 'macOS', assetPattern: '\\.dmg$|mac' }]
+  };
+  const html = await buildProject(project, { mockDir: dir });
+  assert.match(html, /아직 macOS 릴리스가 없습니다/);
+  assert.doesNotMatch(html, /class="badge">최신 버전/);
+});
+
+test('buildProject fails loudly with a clear message when a data.js entry is malformed', async () => {
+  const project = { name: '잘못된 프로젝트', repoUrl: 'https://github.com/touktw/Broken' };
+  await assert.rejects(
+    () => buildProject(project, { mockDir: FIXTURES_DIR }),
+    /data\.js 프로젝트 항목 오류 \(잘못된 프로젝트\)/
+  );
+});
+
+test('buildProject degrades to "no releases" instead of throwing when the mock JSON is not an array', async () => {
+  const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'dl-pages-nonarray-'));
+  fs.writeFileSync(path.join(dir, 'WeirdApp.json'), JSON.stringify({ message: "Not Found" }));
+  const project = {
+    name: 'WeirdApp', repoName: 'WeirdApp', repoUrl: 'https://github.com/touktw/WeirdApp', license: 'x',
+    platforms: [{ label: 'macOS', assetPattern: '\\.dmg$|mac' }]
+  };
+  const html = await buildProject(project, { mockDir: dir });
+  assert.match(html, /아직 macOS 릴리스가 없습니다/);
 });
 
 const { parseArgs } = require('./build-download-pages');

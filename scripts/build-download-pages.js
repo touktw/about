@@ -5,7 +5,8 @@ const fs = require("fs");
 const path = require("path");
 
 function escapeHtml(s) {
-  return s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+  return s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;").replace(/'/g, "&#39;");
 }
 
 // 이 프로젝트들의 release body에서 쓰는 마크다운 부분집합(##/### 헤더, "- " 리스트,
@@ -19,7 +20,11 @@ function renderNotes(md) {
   const inline = (s) => s
     .replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>")
     .replace(/`(.+?)`/g, "<code>$1</code>")
-    .replace(/\[(.+?)\]\((.+?)\)/g, '<a href="$2" target="_blank" rel="noopener">$1</a>');
+    .replace(/\[(.+?)\]\((.+?)\)/g, (m, text, url) =>
+      /^https?:\/\//i.test(url)
+        ? `<a href="${url.replace(/"/g, "&quot;")}" target="_blank" rel="noopener">${text}</a>`
+        : m
+    );
 
   for (const raw of lines) {
     const line = raw.trim();
@@ -58,12 +63,16 @@ function formatDate(iso) {
   return new Date(iso).toLocaleDateString("ko-KR", { year: "numeric", month: "long", day: "numeric" });
 }
 
+function renderDownloadLink(asset) {
+  return `<a class="dl-link" href="${escapeHtml(asset.browser_download_url)}">⬇ ${escapeHtml(asset.name)} 다운로드</a>`;
+}
+
 function renderLatestRelease({ release, asset }) {
   return `<span class="badge">최신 버전</span>
-<h3 style="margin: 8px 0 0;">${escapeHtml(release.name || release.tag_name)}</h3>
+<h3>${escapeHtml(release.name || release.tag_name)}</h3>
 <div class="meta">${formatDate(release.published_at)}</div>
 <div class="notes">${renderNotes(release.body)}</div>
-<a class="dl-link" href="${asset.browser_download_url}">⬇ ${escapeHtml(asset.name)} 다운로드</a>`;
+${renderDownloadLink(asset)}`;
 }
 
 function renderOlderReleases(matches) {
@@ -72,7 +81,7 @@ function renderOlderReleases(matches) {
 <summary><span>${escapeHtml(release.name || release.tag_name)}</span><span class="date">${formatDate(release.published_at)}</span></summary>
 <div class="body">
 <div class="notes">${renderNotes(release.body)}</div>
-<a class="dl-link" href="${asset.browser_download_url}">⬇ ${escapeHtml(asset.name)} 다운로드</a>
+${renderDownloadLink(asset)}
 </div>
 </details>`).join("");
   return `<details class="older"><summary>이전 버전 보기</summary><div>${items}</div></details>`;
@@ -82,14 +91,14 @@ function renderPlatformCard(project, platform, state) {
   const header = `<div class="platform-header"><h2>${escapeHtml(platform.label)}</h2>${platform.tbd ? '<span class="tbd-badge">TBD</span>' : ''}</div>`;
 
   if (platform.tbd) {
-    return `<div class="platform-card">${header}<p class="status">${escapeHtml(platform.label)} 버전은 아직 준비 중입니다. 진행 상황은 <a href="${project.repoUrl}">GitHub 저장소</a>에서 확인해 주세요.</p></div>`;
+    return `<div class="platform-card">${header}<p class="status">${escapeHtml(platform.label)} 버전은 아직 준비 중입니다. 진행 상황은 <a href="${escapeHtml(project.repoUrl)}">GitHub 저장소</a>에서 확인해 주세요.</p></div>`;
   }
   if (state.apiError) {
-    return `<div class="platform-card">${header}<p class="status">릴리스 목록을 불러오지 못했습니다. GitHub Releases 페이지에서 직접 확인해 주세요: <a href="${project.repoUrl}/releases">${escapeHtml(project.repoUrl.replace('https://', ''))}/releases</a></p></div>`;
+    return `<div class="platform-card">${header}<p class="status">릴리스 목록을 불러오지 못했습니다. GitHub Releases 페이지에서 직접 확인해 주세요: <a href="${escapeHtml(project.repoUrl)}/releases">${escapeHtml(project.repoUrl.replace('https://', ''))}/releases</a></p></div>`;
   }
   const matches = state.matches || [];
   if (matches.length === 0) {
-    return `<div class="platform-card">${header}<p class="status">아직 ${escapeHtml(platform.label)} 릴리스가 없습니다. 진행 상황은 <a href="${project.repoUrl}">GitHub 저장소</a>에서 확인해 주세요.</p></div>`;
+    return `<div class="platform-card">${header}<p class="status">아직 ${escapeHtml(platform.label)} 릴리스가 없습니다. 진행 상황은 <a href="${escapeHtml(project.repoUrl)}">GitHub 저장소</a>에서 확인해 주세요.</p></div>`;
   }
   const [latest, ...older] = matches;
   const latestHtml = renderLatestRelease(latest);
@@ -115,7 +124,7 @@ function renderProjectPage(project, platformCardsHtml) {
 <header class="panel">
 <h1>${escapeHtml(project.name)}</h1>
 <p class="lead">${escapeHtml(project.tagline || "")}</p>
-<p><a href="${project.repoUrl}" rel="noopener noreferrer">${escapeHtml(project.repoUrl.replace("https://", ""))}</a></p>
+<p><a href="${escapeHtml(project.repoUrl)}" rel="noopener noreferrer">${escapeHtml(project.repoUrl.replace("https://", ""))}</a></p>
 </header>
 <section class="panel platform-grid">
 ${platformCardsHtml}
@@ -130,8 +139,6 @@ ${platformCardsHtml}
 `;
 }
 
-// 이 함수는 Task 8에서 정의된다. Task 7 시점에는 아래 buildProject가 참조만 하고,
-// mockDir 파일이 없을 때 throw하는 경로로만 테스트된다.
 function loadMockReleases(mockDir, repoName) {
   const file = path.join(mockDir, `${repoName}.json`);
   if (!fs.existsSync(file)) throw new Error(`mock file not found: ${file}`);
@@ -181,6 +188,10 @@ if (require.main === module) {
 }
 
 async function buildProject(project, opts) {
+  if (!project.repoName || !Array.isArray(project.platforms)) {
+    throw new Error(`data.js 프로젝트 항목 오류 (${project.name || "이름 없음"}): repoName과 platforms(배열)가 필요합니다`);
+  }
+
   let releases;
   let apiError = false;
   try {
@@ -188,12 +199,13 @@ async function buildProject(project, opts) {
       ? loadMockReleases(opts.mockDir, project.repoName)
       : await fetchReleases(project.repoName, opts.token);
   } catch (err) {
-    console.warn(`[build-download-pages] ${project.repoName} 릴리스 조회 실패: ${err.message}`);
+    console.warn(`::warning::${project.repoName} 릴리스 조회 실패: ${err.message}`);
     apiError = true;
     releases = [];
   }
 
-  const sorted = releases
+  const list = Array.isArray(releases) ? releases : [];
+  const sorted = list
     .filter((r) => !r.draft)
     .sort((a, b) => new Date(b.published_at) - new Date(a.published_at));
 
