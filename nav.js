@@ -2,7 +2,7 @@
   var NAV_ITEMS = [
     { key: "home", label: "home", href: "index.html" },
     { key: "me", label: "me", href: "me.html" },
-    { key: "projects", label: "projects", href: "projects.html" }
+    { key: "projects", label: "toys", href: "projects.html" }
   ];
 
   function currentPage() {
