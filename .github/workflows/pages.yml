@@ -5,8 +5,9 @@ on:
     branches: [main]
   schedule:
     # AdbTool/AndroidDeveloper 쪽에 새 릴리스가 나와도 이 저장소 자체엔 push가
-    # 없어서 자동으로 안 새로고침되므로, 6시간마다 주기적으로 재배포해서 따라잡는다.
-    - cron: "17 */6 * * *"
+    # 없어서 자동으로 안 새로고침되므로, 매주 월요일에 재배포해서 따라잡는다.
+    # (급하게 반영해야 하면 workflow_dispatch로 수동 실행)
+    - cron: "23 5 * * 1"
   workflow_dispatch:
 
 permissions:
